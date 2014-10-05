@@ -11,7 +11,7 @@ namespace Repository.DAL
 {
     public class CustomerDAL
     {
-        public void AddNewCustomer(Customer NewCustomer)
+        public static void AddNewCustomer(Customer NewCustomer)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -22,7 +22,7 @@ namespace Repository.DAL
             }
         }
 
-        public List<Customer> GetAllCustomers()
+        public static List<Customer> GetAllCustomers()
         {
             using (PastryContext db = new PastryContext())
             {
@@ -31,7 +31,7 @@ namespace Repository.DAL
 
         }
 
-        public void UpdateCustomer(Customer customerToUpdate)
+        public static void UpdateCustomer(Customer customerToUpdate)
         {
             using (var db = new PastryContext())
             {
@@ -40,7 +40,7 @@ namespace Repository.DAL
             }
         }
 
-        public Customer GetCustomer(string ID)
+        public static Customer GetCustomer(string ID)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -50,7 +50,7 @@ namespace Repository.DAL
             }
         }
 
-        public void DeleteCustomer(string customerIDToRemove)
+        public static void DeleteCustomer(string customerIDToRemove)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -61,7 +61,7 @@ namespace Repository.DAL
             }
         }
 
-        public List<Customer> SelectByCriteria(string id = null, string name = null, string lastName = null, string address = null, string phone = null, string password = null, bool? isadmin = null, bool? prefered = null)
+        public static List<Customer> SelectByCriteria(string id = null, string name = null, string lastName = null, string address = null, string phone = null, string password = null, bool? isadmin = null, bool? prefered = null)
         {
             using (PastryContext db = new PastryContext())
             {

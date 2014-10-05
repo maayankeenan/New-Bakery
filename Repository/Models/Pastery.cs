@@ -25,9 +25,8 @@ namespace Repository.Models
         {
         }
 
-        public Pastery(int pasID, string pasName, string pasPicture, PastryType pasType, float pasPrice, string pasComments, bool pasVegan, bool pasGlotanFree)
+        public Pastery(string pasName, string pasPicture, PastryType pasType, float pasPrice, string pasComments, bool pasVegan, bool pasGlotanFree)
         {                  
-            ID = pasID;
             Name = pasName;
             ImageLink = pasPicture;
             Type = pasType;
