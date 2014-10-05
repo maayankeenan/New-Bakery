@@ -13,13 +13,14 @@ namespace Repository.DAL
 {
     public class PastryDAL
     {
-        public static void AddNewPastry(Pastery NewPastry)
+        public static int AddNewPastry(Pastery NewPastry)
         {
             using (PastryContext db = new PastryContext())
             {
-
                 db.Pastries.Add(NewPastry);
                 db.SaveChanges();
+
+                return NewPastry.ID;
             }
         }
 
@@ -31,7 +32,7 @@ namespace Repository.DAL
             }
         }
 
-        
+
 
         public static void UpdatePastry(Pastery PastryToUpdate)
         {
@@ -42,12 +43,12 @@ namespace Repository.DAL
             }
         }
 
-        public static Pastery GetPatry(Pastery pastry)
+        public static Pastery GetPatry(int pastryID)
         {
             using (PastryContext db = new PastryContext())
             {
                 return (from past in db.Pastries
-                        where past.ID == pastry.ID
+                        where past.ID == pastryID
                         select past).FirstOrDefault();
             }
         }
@@ -56,7 +57,7 @@ namespace Repository.DAL
         {
             using (PastryContext db = new PastryContext())
             {
-                var pastry = GetPatry(PastryToRemove);
+                var pastry = GetPatry(PastryToRemove.ID);
 
                 db.Entry(pastry).State = EntityState.Deleted;
 
@@ -64,7 +65,7 @@ namespace Repository.DAL
             }
         }
 
-        public static List<Pastery> SelectByCriteria (int? pasID=null, string pasName=null, PastryType? pasType=null, Double? pasPrice=null, string pasComments=null, bool? pasVegan=null, bool? pasGlotanFree=null)
+        public static List<Pastery> SelectByCriteria(int? pasID = null, string pasName = null, PastryType? pasType = null, Double? pasPrice = null, string pasComments = null, bool? pasVegan = null, bool? pasGlotanFree = null)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -80,7 +81,7 @@ namespace Repository.DAL
                 }
                 if (pasType != null)
                 {
-                    result = result.Where(p => p.Type==pasType).ToList();
+                    result = result.Where(p => p.Type == pasType).ToList();
                 }
                 if (pasPrice != null)
                 {
@@ -92,30 +93,17 @@ namespace Repository.DAL
                 }
                 if (pasVegan != null)
                 {
-                    result = result.Where(p => p.Vegan==pasVegan).ToList();
+                    result = result.Where(p => p.Vegan == pasVegan).ToList();
                 }
                 if (pasGlotanFree != null)
                 {
                     result = result.Where(p => p.GlotanFree == pasGlotanFree).ToList();
                 }
 
+
                 return result.ToList();
-                
+
             }
-        }
-
-        public byte[] GetPhoto(string filePath)
-        {
-            FileStream stream = new FileStream(
-                filePath, FileMode.Open, FileAccess.Read);
-            BinaryReader reader = new BinaryReader(stream);
-
-            byte[] photo = reader.ReadBytes((int)stream.Length);
-
-            reader.Close();
-            stream.Close();
-
-            return photo;
         }
     }
 }

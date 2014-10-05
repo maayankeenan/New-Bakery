@@ -28,8 +28,8 @@ namespace BakeBFlake.Controllers
         {
             ViewBag.Message = "Start your order right here";
 
-            var model = getProducts();
-            //var model = Repository.DAL.PastryDAL.GetAllPastries();
+            //var model = getProducts();
+            var model = Repository.DAL.PastryDAL.GetAllPastries();
 
             //Init cart
             if (Session["Cart"] == null)

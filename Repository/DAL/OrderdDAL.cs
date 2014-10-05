@@ -12,12 +12,14 @@ namespace Repository.DAL
 {
     public class OrderdDAL
     {
-        public static void AddNewOrder(Order NewOrder)
+        public static int AddNewOrder(Order NewOrder)
         {
             using (PastryContext db = new PastryContext())
             {
                 db.Orders.Add(NewOrder);
                 db.SaveChanges();
+
+                return NewOrder.ID;
             }
         }
 
@@ -39,28 +41,49 @@ namespace Repository.DAL
             }
         }
 
-        public static Order GetOrder(Order order)
+        public static Order GetOrder(Int32 orderID)
         {
             using (PastryContext db = new PastryContext())
             {
                 return (from ord in db.Orders
-                        where ord.ID == order.ID
+                        where ord.ID == orderID
                         select ord).FirstOrDefault();
             }
         }
 
-        public static void DeleteOrder(Order orderToRemove)
+        public static void DeleteOrder(Int32 orderIDToRemove)
         {
             using (PastryContext db = new PastryContext())
             {
-                var order = GetOrder(orderToRemove);
-                db.Entry(orderToRemove).State = EntityState.Deleted;
+                var order = GetOrder(orderIDToRemove);
+                db.Entry(order).State = EntityState.Deleted;
 
                 int num = db.SaveChanges();
             }
         }
 
-        public static List<Order> SelectByCriteria(int? OrderID = null, DateTime? OrderDate = null, DateTime? DeliveryDate = null, int? TotalAmount = null, string Comments = null, OrderStatus? Status = null, string CustomerID = null, int? pastryID=null)
+        public static void MostOrderedPastery()
+        {
+            using (PastryContext db = new PastryContext())
+            {
+                //var s = db.OrderDetailes.Join(db.Pastries).GroupBy(gb => gb.PasteryId).Select(g => new { Item = g.Key, Quantity = g.Sum(i => i.TotalAmount) });
+                //var query = (from orderedPastery in db.OrderDetailes
+                //            group orderedPastery by {new orderedPastery.PasteryId} into ran 
+                //            select new { Item = ran.sum(TotalAmount), ran.OrderDetails.PasteryId)}; 
+                var query = (from op in db.OrderDetailes
+                             join p in db.Pastries on op.PasteryId equals p.ID
+                             select new { op.PasteryId, op.TotalAmount, p.Name } into x
+                             group x by new { x.PasteryId, x.Name } into g
+                             select new
+                             {
+                                 Name = g.Key.Name,
+                                 Quantity = g.Sum(y => y.TotalAmount)
+                             });
+
+            }
+        }
+
+        public static List<Order> SelectByCriteria(int? OrderID = null, DateTime? OrderDate = null, DateTime? DeliveryDate = null, int? TotalAmount = null, string Comments = null, OrderStatus? Status = null, string CustomerID = null, int? pastryID = null)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -96,22 +119,13 @@ namespace Repository.DAL
                 }
                 if (pastryID != null)
                 {
-                    //result.ToList().ForEach(p => ((ICollection<OrderDetails>)p.OrderDetailes).ToList().ForEach(a=>a.pastryID == pastryID));
+                    //result = result.ToList().Where(p => (((ICollection<OrderDetails>)p.OrderDetails).ToList()).Where(a=>a.PasteryId==pastryID));
+                    result = result.Where(p => (p.OrderDetails).Any(a => a.PasteryId == pastryID)).ToList();
                 }
-                
+
 
                 return result.ToList();
             }
         }
-
-        public static void addToOrderDetails (OrderDetails a)
-        {
-            using (PastryContext db = new PastryContext())
-            {
-                db.OrderDetailes.Add(a);
-                db.SaveChanges();
-            }
-        }
-
     }
 }

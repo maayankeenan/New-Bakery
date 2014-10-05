@@ -3,7 +3,7 @@ namespace Repository.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class InitialCreate : DbMigration
+    public partial class ran : DbMigration
     {
         public override void Up()
         {
@@ -13,6 +13,7 @@ namespace Repository.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
+                        Phone = c.String(),
                         X = c.Double(nullable: false),
                         Y = c.Double(nullable: false),
                     })
@@ -37,15 +38,15 @@ namespace Repository.Migrations
                 "dbo.Order",
                 c => new
                     {
-                        OrderID = c.String(nullable: false, maxLength: 128),
+                        ID = c.Int(nullable: false, identity: true),
                         OrderDate = c.DateTime(nullable: false),
-                        DeliveryDate = c.DateTime(nullable: false),
-                        TotalAmount = c.Int(nullable: false),
+                        DelieveryDate = c.DateTime(nullable: false),
+                        TotalPrice = c.Double(nullable: false),
                         Comments = c.String(),
                         Status = c.Int(nullable: false),
                         CustomerID = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.OrderID)
+                .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Customer", t => t.CustomerID)
                 .Index(t => t.CustomerID);
             
@@ -53,29 +54,29 @@ namespace Repository.Migrations
                 "dbo.OrderDetails",
                 c => new
                     {
-                        ID = c.String(nullable: false, maxLength: 128),
-                        OrderID = c.String(maxLength: 128),
-                        pastryID = c.Int(nullable: false),
+                        ID = c.Int(nullable: false, identity: true),
+                        OrderID = c.Int(nullable: false),
+                        PasteryId = c.Int(nullable: false),
                         TotalAmount = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Order", t => t.OrderID)
-                .ForeignKey("dbo.Pastry", t => t.pastryID, cascadeDelete: true)
+                .ForeignKey("dbo.Order", t => t.OrderID, cascadeDelete: true)
+                .ForeignKey("dbo.Pastery", t => t.PasteryId, cascadeDelete: true)
                 .Index(t => t.OrderID)
-                .Index(t => t.pastryID);
+                .Index(t => t.PasteryId);
             
             CreateTable(
-                "dbo.Pastry",
+                "dbo.Pastery",
                 c => new
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        Picture = c.Binary(),
+                        ImageLink = c.String(),
                         Type = c.Int(nullable: false),
-                        Price = c.Single(nullable: false),
+                        Price = c.Double(nullable: false),
                         Comments = c.String(),
                         Vegan = c.Boolean(nullable: false),
-                        glotanFree = c.Boolean(nullable: false),
+                        GlotanFree = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -83,13 +84,13 @@ namespace Repository.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.OrderDetails", "pastryID", "dbo.Pastry");
+            DropForeignKey("dbo.OrderDetails", "PasteryId", "dbo.Pastery");
             DropForeignKey("dbo.OrderDetails", "OrderID", "dbo.Order");
             DropForeignKey("dbo.Order", "CustomerID", "dbo.Customer");
-            DropIndex("dbo.OrderDetails", new[] { "pastryID" });
+            DropIndex("dbo.OrderDetails", new[] { "PasteryId" });
             DropIndex("dbo.OrderDetails", new[] { "OrderID" });
             DropIndex("dbo.Order", new[] { "CustomerID" });
-            DropTable("dbo.Pastry");
+            DropTable("dbo.Pastery");
             DropTable("dbo.OrderDetails");
             DropTable("dbo.Order");
             DropTable("dbo.Customer");

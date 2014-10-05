@@ -10,7 +10,6 @@ namespace Repository.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Repository.DAL.PastryContext";
         }
 
         protected override void Seed(Repository.DAL.PastryContext context)

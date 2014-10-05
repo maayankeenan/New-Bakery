@@ -18,6 +18,7 @@ namespace Repository.DAL
 
                 db.Customers.Add(NewCustomer);
                 db.SaveChanges();
+
             }
         }
 
@@ -39,22 +40,22 @@ namespace Repository.DAL
             }
         }
 
-        public Customer GetCustomer(Customer customer)
+        public Customer GetCustomer(string ID)
         {
             using (PastryContext db = new PastryContext())
             {
                 return (from cust in db.Customers
-                        where cust.ID == customer.ID
+                        where cust.ID == ID
                         select cust).FirstOrDefault();
             }
         }
 
-        public void DeleteCustomer(Customer customerToRemove)
+        public void DeleteCustomer(string customerIDToRemove)
         {
             using (PastryContext db = new PastryContext())
             {
-                var customer = GetCustomer(customerToRemove);
-                db.Entry(customerToRemove).State = EntityState.Deleted;
+                var customer = GetCustomer(customerIDToRemove);
+                db.Entry(customer).State = EntityState.Deleted;
 
                 int num = db.SaveChanges();
             }
@@ -65,10 +66,10 @@ namespace Repository.DAL
             using (PastryContext db = new PastryContext())
             {
                 IList<Customer> result = db.Customers.ToList();
-                
+
                 if (id != null)
                 {
-                    result = result.Where(p=>p.ID.Equals(id)).ToList();
+                    result = result.Where(p => p.ID.Equals(id)).ToList();
                 }
                 if (name != null)
                 {

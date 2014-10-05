@@ -17,10 +17,16 @@ namespace Repository.DAL
         public DbSet<Pastery> Pastries { get; set; }
         public DbSet<Branch> Branches { get; set; }
 
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
+
+        public PastryContext()
+            : base("RanConnection")
+        {
+            Database.SetInitializer<PastryContext>(null);
         }
 
     }    
