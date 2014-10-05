@@ -1,0 +1,46 @@
+﻿@model List<BakeBFlake.Models.Pastery>
+
+@{
+    ViewBag.Title = "Types";
+}
+
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Message</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+<div>
+    <div class="float-left">
+        <h3>We suggest the following:</h3>
+        <ol class="round">
+            <li>
+                <h5><a href="order/types/Breads">Breads</a></h5>
+            </li>
+            <li>
+                <h5><a href="order/types/cakes">Cakes</a></h5>
+            </li>
+            <li>
+                <h5><a href="order/types/cupcakes">Cupcakes</a></h5>
+            </li>
+            <li>
+                <h5><a href="order/types/cookies">Cookies</a></h5>
+            </li>
+        </ol>
+    </div>
+    <div class="float-left">
+        <ul class="small-block-grid-3 types">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <img src="@item.ImageLink" />
+                    <h3>@item.Name</h3>
+                    <p>@item.Price</p>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

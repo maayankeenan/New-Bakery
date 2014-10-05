@@ -1,0 +1,52 @@
+﻿@model Repository.Models.Pastery
+
+<div class="pastery-editor">
+    @Html.HiddenFor(model => Model.ID)
+
+    <div class="form-group">
+        <label>Name</label>
+        @Html.EditorFor(model => Model.Name)
+    </div>
+
+    <div class="form-group">
+        <label>Price</label>
+        @Html.EditorFor(model => Model.Price)
+    </div>
+
+    <div class="form-group">
+        <label>Type</label>
+        <select id="Type" name="Type" style="width:20%">
+            <option disabled selected></option>
+            <option value="1">Breads</option>
+            <option value="2">Cupcakes</option>
+            <option value="3">Cakes</option>
+            <option value="4">Bagel</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>
+            @Html.EditorFor(model => Model.Vegan)
+            Vegan
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>
+            @Html.EditorFor(model => Model.GlotanFree)
+            Glotan Free
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Comments</label>
+        <textarea class="form-control" id="Comments" name="Comments">@Model.Comments</textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Image Url</label>
+        <input type="url" class="form-control" id="ImageLink" name="ImageLink" style="margin-top:10px" value="" />
+    </div>
+</div>
+
+

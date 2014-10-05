@@ -1,0 +1,53 @@
+﻿@model Repository.Models.Pastery
+
+@{
+    ViewBag.Title = "Pastery View";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@(@Model.Name + " Details")</h4></div>
+    <div class="panel-body">
+        <div class="pull-left" style="width:70%">
+        <form>
+            <div class="form-group">
+                <label>Name</label>
+                <label>@Model.Name</label>
+            </div>
+
+            <div class="form-group">
+                <label>Price</label>
+                <label>@Model.Price</label>
+            </div>
+
+            <div class="form-group">
+                <label>Type</label>
+                <label>@Model.Type</label>
+            </div>
+
+            <div class="form-group">
+                <label>Vegan</label>
+                <label>@Model.Vegan</label>
+            </div>
+
+            <div class="form-group">
+                    <label>Glotan Free</label>
+                    <label>@Model.GlotanFree</label>
+            </div>
+
+            <div class="form-group">
+                <label>Comments</label>
+                <textarea class="form-control" disabled>@Model.Comments</textarea>
+            </div>
+           @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"])
+           {
+                <div>
+                    <a class="btn btn-primary" href="/Pastery/Edit/@Model.ID">Edit</a>
+                </div>
+            }
+         </form>
+        </div>
+        <div class="pull-left" style="margin-left:50px">
+            <img src="@Model.ImageLink" style="width:300px;height:350px"/><br/>
+        </div>
+    </div>
+</div>

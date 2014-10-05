@@ -1,0 +1,12 @@
+﻿.logo-header {
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin-left:25%;
+    margin-top:-40px;
+}
+
+textarea[readonly] {
+    background-color:rgb(239,239,239);
+}

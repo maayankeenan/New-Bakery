@@ -1,0 +1,33 @@
+﻿@model Repository.Models.Order
+
+@{
+    ViewBag.Title = "Checkout";
+}
+
+@section PageScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $cart = $('#cartDisplay');
+            var counter = 0;
+            $cart.find('a').text("Cart (" + counter + ")");
+            $cart.attr('data-counter', counter);
+        });
+    </script>
+}
+
+
+
+
+<div class="panel">
+    <section>
+        <h1>Your Order Has Been Completed</h1>
+    </section>
+    <section>
+        <h3>Confirmation: @Model.ID</h3>
+    </section>
+    <br/>
+    <div>
+        <h5>Thanks for shoping at BakeNFlake!</h5>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+﻿@model Repository.Models.Pastery
+
+@{
+    ViewBag.Title = "Pastery Edit";
+}
+
+
+@if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+{
+<div>
+    <h2>You are not authorized to view this page</h2>
+</div>
+}
+else
+{
+<div class="panel panel-default">
+    <div class="panel-heading"><h4>@Model.Name</h4></div>
+    <div class="panel-body">
+        <div class="pull-left" style="width:70%">
+            <form method="post" action="/Pastery/Save">
+                @Html.Partial("PasteryEditor")
+                <div>
+                    <input type="submit" class="btn btn-primary" value="Save Changes" />
+                </div>
+            </form>
+        </div>
+        <div class="pull-left" style="margin-left:50px">
+            <img src="@Model.ImageLink" style="width:300px;height:350px" /><br />
+        </div>
+    </div>
+</div>
+}

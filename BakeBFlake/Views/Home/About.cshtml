@@ -1,0 +1,130 @@
+﻿
+<center>
+    <div class="col-md-offset-2 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Our story...</b></div>
+            <div align="left" class=" panel-body">
+                    In 1974, Bake N' Flake Bakery opened its first location on a quiet street corner in the heart of Tel-Aviv City. From its inception, Bake N' Flake Bakery has been cherished for its classic American baked goods, vintage decor and warm, inviting atmosphere.
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+
+
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false">
+    </script>
+
+    <script>
+        function initialize()
+        {
+            var mapProp = {
+                center:new google.maps.LatLng(32.080064, 34.780493),
+                zoom:13,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            var map=new google.maps.Map(document.getElementById("googleMap")
+              , mapProp);
+
+            @foreach (var branch in Model) {
+    @:addMarker(@branch.X, @branch.Y, '@branch.Name', map);
+                                                                                                                            }
+        }
+
+        function addMarker(latitude, longitude, title, map) {
+            var latLng = new google.maps.LatLng(latitude, longitude);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: title
+            });
+
+            var marker = new google.maps.Marker({
+                position: latLng,
+                title: title,
+                map: map,
+                draggable: false
+            });
+
+            google.maps.event.addListener(marker, 'click', function () {
+                infowindow.open(map, marker);
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+
+    <div class="row col-md-offset-2 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Come visit us</b></div>
+            <div class="panel-body">
+                <div class="col-md-1" id="googleMap" style="width:500px;height:380px;"></div>
+
+                <div class="col-md-offset-1 col-md-3">
+
+                    <br />
+                    <br />
+                    @foreach (var branch in Model)
+                    {
+                        <b>@branch.Name</b>
+                        <br />
+                        <span>@branch.Phone</span>
+                        <br />
+                        <br />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+
+
+    <div class="row">
+
+
+        <div class="col-md-offset-2 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Watch our weekly video</b></div>
+                <div class="panel-body">
+
+                    <div class="embed-responsive embed-responsive-4by3">
+                        <iframe width="420" height="315"
+                                src="http://www.youtube.com/embed/qssE3pmKmhM"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading"><b>Follow us on <a href="http://instagram.com/bnfbakery"><img src="~/Images/Instagram.png" /></a></b></div>
+                <div class="panel-body">
+                    <div class="row">
+                        @foreach (string url in ViewBag.instagramImages)
+                        {
+                            <div class="col-xs-6 col-md-4">
+                                <a href="@url" class="thumbnail">
+                                    <img src="@url" alt="150%x150" style="height: 150px; height: 150px; display: block" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+</center>
+
+
+
+
+
+
+

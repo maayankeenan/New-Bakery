@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BakeBFlake", "BakeBFlake\BakeBFlake.csproj", "{4B6672B5-B249-4D17-A0AB-8351BAD4C0E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleForRan", "ConsoleForRan\ConsoleForRan.csproj", "{EBF4D029-2383-46AD-8386-7D392E85201A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{7BF81A74-2310-4141-A79F-AE99FAA2E4BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4B6672B5-B249-4D17-A0AB-8351BAD4C0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B6672B5-B249-4D17-A0AB-8351BAD4C0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B6672B5-B249-4D17-A0AB-8351BAD4C0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B6672B5-B249-4D17-A0AB-8351BAD4C0E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBF4D029-2383-46AD-8386-7D392E85201A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBF4D029-2383-46AD-8386-7D392E85201A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBF4D029-2383-46AD-8386-7D392E85201A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBF4D029-2383-46AD-8386-7D392E85201A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BF81A74-2310-4141-A79F-AE99FAA2E4BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF81A74-2310-4141-A79F-AE99FAA2E4BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF81A74-2310-4141-A79F-AE99FAA2E4BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF81A74-2310-4141-A79F-AE99FAA2E4BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

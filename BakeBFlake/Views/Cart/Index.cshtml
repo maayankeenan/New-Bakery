@@ -1,0 +1,38 @@
+﻿@model Repository.Models.Order
+@{
+    ViewBag.Title = "Cart";
+}
+
+@section PageScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".order-content .remove-item").click(function (event) {
+                var $row = $(event.target.parentElement).parent();
+                $.get("/Cart/RemoveItem", {
+                    id: $row.attr('id')
+                },
+                function (result) {
+                    if (result) {
+                        $row.remove();
+                        var amount = $row.find('#amount').val()
+                        var $cart = $('#cartDisplay');
+                        var counter = parseInt($cart.attr('data-counter')) - amount;
+                        $cart.find('a').text("Cart (" + counter + ")");
+                        $cart.attr('data-counter', counter);
+                    }
+                })
+            });
+
+        });
+    </script>
+}
+
+<div>
+    <div class="order-content">
+        @Html.Partial("OrderDetails")
+        <div class="pull-right">
+            <a href="/Cart/Checkout" class="btn btn-success btn-checkout">Checkout<span> >></span></a>
+        </div>
+    </div>
+</div>

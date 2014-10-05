@@ -1,0 +1,57 @@
+﻿@model Repository.Models.Order
+
+@{
+    ViewBag.Title = "View Order";
+}
+
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">Order Details</h4>
+        </div>
+        <div class="panel-body">
+            <div class="details-container">
+                @Html.HiddenFor(model => Model.ID)
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Order Date</label>
+                        <label>@Model.OrderDate.ToShortDateString()</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Delievery Date</label>
+                        <label>
+                            @if (Model.DelieveryDate != DateTime.MinValue)
+                            {
+                                @Model.DelieveryDate.ToShortDateString()
+                            }
+                        </label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Total Price</label>
+                        <label>@Model.TotalPrice</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Status</label>
+                        <label>@Model.Status</label>
+                    </div>
+                </div>
+                <div class="row" style="margin-left:2px; margin-right:-2px">
+                    <label>Comments</label>
+                    <textarea readonly>@Model.Comments</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="order-details-container panel panel-default" style="margin-top:30px">
+        <div class="panel-heading"><h4 class="panel-title">Items in order</h4></div>
+        <div class="panel-body">
+            @Html.Partial("OrderDetails")
+        </div>
+    </div>
+    @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"])
+    {
+        <div class="pull-right">
+            <a href="/Order/Edit/@Model.ID" class="btn btn-default btn-checkout">Edit</a>
+        </div>
+    }
+</div>

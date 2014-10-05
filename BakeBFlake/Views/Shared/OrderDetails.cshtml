@@ -1,0 +1,30 @@
+﻿@model Repository.Models.Order
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Amount</td>
+            <td>Total Price</td>
+            @if (Model.ID == 0 || (bool)ViewBag.EditOrder) { 
+            <td>Actions</td>
+            }
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.OrderDetails)
+    {
+        <tr id="@item.ID">
+            <td>@item.Pastery.Name</td>
+            <td>@item.TotalAmount</td>
+            <td id="amount">@(item.TotalAmount * item.Pastery.Price)</td>
+            @if (Model.ID == 0 || (bool)ViewBag.EditOrder) {
+            <td><button class="btn remove-item">X</button></td>
+            }
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+

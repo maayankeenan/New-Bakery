@@ -1,0 +1,115 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+@section PageScripts{
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            $(".search-btn").click(function (event) {
+                $.get("/Home/Search", {
+                    name: $('#nameFilter').val(), type: $('#typeFilter').val(), price: $('#priceFilter').val(), glotenFree: $('#glotanFilter').prop('checked'), vegan: $('#veganFilter').prop('checked')
+                }, function (result) {
+                    $('.pastery-grid').html(result);
+                })
+            });
+
+            $(".clear-search-btn").click(function () {
+                $('#nameFilter').val('');
+                $('#typeFilter').val('');
+                $('#priceFilter').val('');
+                $('#glotanFilter').removeAttr('checked');
+                $('#veganFilter').removeAttr('checked');
+                $.get("/Home/Search", function (result) {
+                    $('.pastery-grid').html(result);
+                } );
+            });
+
+            $("input[type=checkbox]").click(function (e) {
+                e.target.checked ? $(e.target).attr('checked', 'checked') : $(e.target).removeAttr('checked');
+            });
+
+            $(".add-to-cart").click(function (event) {
+                var $itemContainer = $(event.target.parentElement);
+                var pasteryId = $itemContainer.attr("id");
+                var pasteryName = $itemContainer.find('h5').text();
+                var price = $itemContainer.find('p').text().replace('$','');
+
+                $.get("/Home/AddToCart",
+                    {pasteryId : pasteryId, pasteryName : pasteryName, price : price},
+                    function (result) {
+                        if (result) {
+                            var $cart = $('#cartDisplay');
+                            var counter = parseInt($cart.attr('data-counter')) + 1;
+                            $cart.find('a').text("Cart (" + counter + ")");
+                            $cart.attr('data-counter', counter);
+                        }
+                     })
+            });
+        });
+</script>
+}
+<div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Find your choice of Pastery</h3>
+        </div>
+        <div class="panel-body">
+            <div class="search-container">
+                <div class="row" style="margin-left:0px">
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <label for="nameFilter">Name</label>
+                            <input type="text" class="form-control" id="nameFilter" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <label for="typeFilter">Type</label>
+                            <select class="form-control" id="typeFilter">
+                                <option disabled selected></option>
+                                <option value="1">Breads</option>
+                                <option value="2">Cupcakes</option>
+                                <option value="3">Cakes</option>
+                                <option value="4">Bagel</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="input-group">
+                            <label for="priceFilter">Price</label>
+                            <input type="text" class="form-control" id="priceFilter" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="margin-top:17px">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="glotanFilter"> Glotan Free
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-2" style="margin-top:17px">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="veganFilter"> Vegan
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-lg-1 pull-right" style="margin-top:20px;">
+                        <button class="btn btn-default search-btn">Search</button>
+                    </div>
+                    <div class="col-lg-1 pull-right" style="margin-top:20px">
+                        <button class="btn btn-default clear-search-btn">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default" style="margin-top:30px">
+        <div class="panel-body pastery-grid">
+            <section>
+                    @Html.Partial("Search")
+            </section>
+        </div>
+    </div>
+</div>
