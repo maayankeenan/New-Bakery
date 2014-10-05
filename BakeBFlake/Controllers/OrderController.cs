@@ -9,20 +9,22 @@ namespace BakeBFlake.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Index(string customerId, string price, string comments)
+        public ActionResult Index(string customerId, int price, string comments)
         {
             ViewBag.Message = "Orders List";
 
-            var orders = new List<Order>();
+            var orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
 
-            var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
-            orders.Add(order1);
+            //var orders = new List<Order>();
+            //var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
+            //orders.Add(order1);
 
             return View(orders);
         }
 
         public ActionResult Delete(int id)
         {
+            Repository.DAL.OrderdDAL.DeleteOrder(id);
             return RedirectToAction("Index");
         }
 

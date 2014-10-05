@@ -9,7 +9,7 @@ namespace Repository.DAL
 {
     public class BranchDAL
     {
-        public List<Branch> allBranches()
+        public static List<Branch> allBranches()
         {
             using (PastryContext db = new PastryContext())
             {

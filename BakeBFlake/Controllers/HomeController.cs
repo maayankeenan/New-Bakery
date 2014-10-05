@@ -1,4 +1,5 @@
-﻿using Repository.Enum;
+﻿using Repository.DAL;
+using Repository.Enum;
 using Repository.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace BakeBFlake.Controllers
 {
@@ -26,6 +29,63 @@ namespace BakeBFlake.Controllers
 
         public ActionResult Index()
         {
+            //using (PastryContext context = new PastryContext())
+            //{
+            //    //context.Database.Connection.Open();
+
+            //    var Pastries = new List<Pastery>
+            //    {
+            //        new Pastery { ID = 0,   Name = "בורקס חלומי", 
+            //            Type = PastryType.Bagels ,Vegan=false, GlotanFree=false  },
+            //        new Pastery { ID = 1,   Name = "לחם אלוהי",
+            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
+            //        new Pastery { ID = 2,   Name = "בורקס אלוהי",
+            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
+                
+            //    };
+
+            //    Pastries.ForEach(s => context.Pastries.AddOrUpdate(p => p.ID, s));
+            //    context.SaveChanges();
+
+            //    var Customers = new List<Customer>
+            //    {
+            //        new Customer {ID="305631491", Name="Ran", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=false},
+            //        new Customer {ID="305631490", Name="May", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=true},
+            //    };
+
+            //    Customers.ForEach(s => context.Customers.AddOrUpdate(p => p.ID, s));
+            //    context.SaveChanges();
+
+            //    var Orders = new List<Order>
+            //    {
+            //        new Order { ID=1, OrderDate=DateTime.Today.Date, DelieveryDate=DateTime.Today.Date.AddDays(1), Status=OrderStatus.Accepted ,CustomerID="305631491"},
+            //    };
+
+            //    Orders.ForEach(s => context.Orders.AddOrUpdate(p => p.ID, s));
+            //    context.SaveChanges();
+
+
+
+
+            //    var OrdersDetailes = new List<OrderDetails>
+            //    {
+            //        new OrderDetails {ID=0, OrderID=1, PasteryId= 2, TotalAmount=2},
+            //    };
+
+            //    OrdersDetailes.ForEach(s => context.OrderDetailes.AddOrUpdate(p => p.ID, s));
+            //    context.SaveChanges();
+
+            //    var Branches = new List<Branch>
+            //    {
+            //        new Branch {ID=0, Name="Ran's Pastry", X=5.0, Y=3.0},
+            //        new Branch {ID=1, Name="Rani's Pastry", X=5.0, Y=3.0},
+            //    };
+
+            //    Branches.ForEach(s => context.Branches.AddOrUpdate(p => p.ID, s));
+            //    context.SaveChanges();
+            //}
+
+
             ViewBag.Message = "Start your order right here";
 
             //var model = getProducts();
@@ -104,28 +164,29 @@ namespace BakeBFlake.Controllers
 
         public ActionResult About()
         {
-            var branches = new List<Branch>();
+            var branches = Repository.DAL.BranchDAL.allBranches();
+            //var branches = new List<Branch>();
 
-            var branch1 = new Branch();
-            branch1.Name = "Ramat gan - Zabutinsky branch";
-            branch1.Phone = "03-845739";
-            branch1.X = 32.084609;
-            branch1.Y = 34.809756;
-            branches.Add(branch1);
+            //var branch1 = new Branch();
+            //branch1.Name = "Ramat gan - Zabutinsky branch";
+            //branch1.Phone = "03-845739";
+            //branch1.X = 32.084609;
+            //branch1.Y = 34.809756;
+            //branches.Add(branch1);
 
-            var branch2 = new Branch();
-            branch2.Name = "Hamedina square branch";
-            branch2.Phone = "03-842579";
-            branch2.X = 32.085955;
-            branch2.Y = 34.788577;
-            branches.Add(branch2);
+            //var branch2 = new Branch();
+            //branch2.Name = "Hamedina square branch";
+            //branch2.Phone = "03-842579";
+            //branch2.X = 32.085955;
+            //branch2.Y = 34.788577;
+            //branches.Add(branch2);
 
-            var branch3 = new Branch();
-            branch3.Name = "Rabin square branch";
-            branch3.Phone = "03-3643679";
-            branch3.X = 32.080555;
-            branch3.Y = 34.781432;
-            branches.Add(branch3);
+            //var branch3 = new Branch();
+            //branch3.Name = "Rabin square branch";
+            //branch3.Phone = "03-3643679";
+            //branch3.X = 32.080555;
+            //branch3.Y = 34.781432;
+            //branches.Add(branch3);
 
             var images = getInstagramImages(); 
             ViewBag.instagramImages = images;
@@ -176,7 +237,9 @@ namespace BakeBFlake.Controllers
         [HttpPost]
         public ActionResult Register(Customer customer)
         {
+            Repository.DAL.CustomerDAL.AddNewCustomer(customer);
             this.loginedUser = customer;
+
             return RedirectToAction("Index");
         }
 
@@ -187,44 +250,49 @@ namespace BakeBFlake.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public ActionResult Login(string id, string password)
         {
-            if(username == "admin")
+            var cust = Repository.DAL.CustomerDAL.GetCustomer(id);
+            if (cust.Password == password)
             {
-                var user1 = new Customer();
-                user1.ID = "999";
-                user1.Name = "admin";
-                user1.LastName = "hamelech";
-                user1.Address = "Bla bla 56";
-                user1.Phone = "5547853";
-                user1.Password = "123";
-                user1.Prefered = true;
-                user1.IsAdmin = true;
-
-                this.loginedUser = user1;
-                Session["IsAdmin"] = true;
+                return RedirectToAction("Index");
             }
-            else if (username == "abc")
-            {
-                var user1 = new Customer();
-                user1.ID = "999";
-                user1.Name = "abc";
-                user1.LastName = "tipesh";
-                user1.Address = "Bla bla 56";
-                user1.Phone = "5547853";
-                user1.Password = "321";
-                user1.Prefered = false;
-                user1.IsAdmin = false;
+            //if(username == "admin")
+            //{
+            //    var user1 = new Customer();
+            //    user1.ID = "999";
+            //    user1.Name = "admin";
+            //    user1.LastName = "hamelech";
+            //    user1.Address = "Bla bla 56";
+            //    user1.Phone = "5547853";
+            //    user1.Password = "123";
+            //    user1.Prefered = true;
+            //    user1.IsAdmin = true;
 
-                this.loginedUser = user1;
-            }
+            //    this.loginedUser = user1;
+            //    Session["IsAdmin"] = true;
+            //}
+            //else if (username == "abc")
+            //{
+            //    var user1 = new Customer();
+            //    user1.ID = "999";
+            //    user1.Name = "abc";
+            //    user1.LastName = "tipesh";
+            //    user1.Address = "Bla bla 56";
+            //    user1.Phone = "5547853";
+            //    user1.Password = "321";
+            //    user1.Prefered = false;
+            //    user1.IsAdmin = false;
+
+            //    this.loginedUser = user1;
+            //}
             else
             {
                 ViewBag.Message = "Access denied, Bad Id or password";
                 return View("Login");
             }
 
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index");
         }
     }
 }

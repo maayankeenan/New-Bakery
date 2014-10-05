@@ -1,4 +1,4 @@
-﻿@model BakeBFlake.Models.User
+﻿@model Repository.Models.Customer
 
 @{
     ViewBag.Title = "Register";
@@ -6,7 +6,8 @@
 
 <h2>Register</h2>
 
-@using (Html.BeginForm("Register", "Home")) {
+@using (Html.BeginForm("Register", "Home"))
+{
 
     <fieldset>
         <legend>Customer Details</legend>
@@ -15,7 +16,7 @@
             Id
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Id)
+            @Html.EditorFor(model => model.ID)
         </div>
 
         <div class="editor-label">
@@ -43,7 +44,7 @@
             Phone
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.PhoneNumber)
+            @Html.EditorFor(model => model.Phone)
         </div>
 
         <div class="editor-label">
