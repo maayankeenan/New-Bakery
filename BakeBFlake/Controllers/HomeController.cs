@@ -1,5 +1,6 @@
 ﻿using Repository.Enum;
 using Repository.Models;
+using Repository.DAL;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,10 @@ namespace BakeBFlake.Controllers
 
             //var model = getProducts();
             var model = Repository.DAL.PastryDAL.GetAllPastries();
+
+            
+            OrderdDAL.AddNewOrder(new Order(DateTime.Today, DateTime.Today.AddDays(5),0,string.Empty, OrderStatus.Accepted,"305631491"));
+
 
             //Init cart
             if (Session["Cart"] == null)

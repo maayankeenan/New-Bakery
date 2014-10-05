@@ -15,8 +15,8 @@ namespace BakeBFlake.Controllers
 
             var orders = new List<Order>();
 
-            var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
-            orders.Add(order1);
+            //var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
+            //orders.Add(order1);
 
             return View(orders);
         }
