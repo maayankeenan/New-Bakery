@@ -260,8 +260,9 @@ namespace BakeBFlake.Controllers
         public ActionResult Login(string id, string password)
         {
             var cust = Repository.DAL.CustomerDAL.GetCustomer(id);
-            if (cust.Password == password)
+            if ((cust != null) && (cust.Password == password))
             {
+                this.loginedUser = cust;
                 return RedirectToAction("Index");
             }
             //if(username == "admin")
