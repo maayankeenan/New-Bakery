@@ -20,13 +20,13 @@ namespace BakeBFlake.Controllers
             firstName = (firstName != null && firstName.Length == 0) ? null : firstName;
             lastName = (lastName != null && lastName.Length == 0) ? null : lastName;
             address = (address != null && address.Length == 0) ? null : address;
-               
-            //var model = new List<Customer>();
-            //if ((Session["LoginUser"] != null) && (Session["LoginUser"] as Customer).IsAdmin)
-            //{
-            //    model = Repository.DAL.CustomerDAL.SelectByCriteria(id, firstName, lastName, address);
-            //}
-            var model = getUsers();
+
+            var model = new List<Customer>();
+            if ((Session["LoginUser"] != null) && (Session["LoginUser"] as Customer).IsAdmin)
+            {
+                model = Repository.DAL.CustomerDAL.SelectByCriteria(id, firstName, lastName, address);
+            }
+            //var model = getUsers();
 
             return View(model);
         }
