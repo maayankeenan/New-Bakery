@@ -13,7 +13,19 @@ namespace BakeBFlake.Controllers
         {
             ViewBag.Message = "Orders List";
 
-            var orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
+            var orders = new List<Order>();
+            if(Session["LoginUser"] != null)
+            {
+                var cust = Session["LoginUser"] as Customer;
+                if (cust.IsAdmin)
+                {
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
+                }
+                else
+                {
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, cust.ID, null);
+                }
+            }
 
             //var orders = new List<Order>();
             //var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
