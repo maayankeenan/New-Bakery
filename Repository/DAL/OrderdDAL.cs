@@ -81,11 +81,13 @@ namespace Repository.DAL
                 //            select new { Item = ran.sum(TotalAmount), ran.OrderDetails.PasteryId)}; 
                 var query = (from op in db.OrderDetailes
                              join p in db.Pastries on op.PasteryId equals p.ID
-                             select new { op.PasteryId, op.TotalAmount, p.Name } into x
-                             group x by new { x.PasteryId, x.Name } into g
+                             select new { op.PasteryId, op.TotalAmount, p.Name, p.ImageLink } into x
+                             group x by new { x.PasteryId, x.Name, x.ImageLink } into g
                              select new
                              {
                                  Name = g.Key.Name,
+                                 Image = g.Key.ImageLink,
+                                 ID = g.Key.PasteryId,
                                  Quantity = g.Sum(y => y.TotalAmount)
                              });
 

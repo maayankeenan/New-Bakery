@@ -51,65 +51,87 @@
 }
 <div>
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Find your choice of Pastery</h3>
-        </div>
+        <div class="panel-heading"><h3 class="panel-title">Our Top Products</h3></div>
         <div class="panel-body">
-            <div class="search-container">
-                <div class="row" style="margin-left:0px">
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <label for="nameFilter">Name</label>
-                            <input type="text" class="form-control" id="nameFilter" />
-                        </div>
+            <div class="row">
+                @foreach (var product in ViewBag.TopProducts)
+                {
+                    <div class="col-md-2">
+                        <center>
+                            <a href="/Pastery/View/@product.ID">
+                                <img src="@product.Image" class="img-circle" alt="150%x150" style="height: 150px; height: 150px; display: block" />
+                            </a>
+                            <b>
+                                <span>@product.Name</span>
+                                <br />
+                                <span>@product.Quantity</span>
+                            </b>
+                        </center>
                     </div>
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <label for="typeFilter">Type</label>
-                            <select class="form-control" id="typeFilter">
-                                <option disabled selected></option>
-                                <option value="1">Breads</option>
-                                <option value="2">Cupcakes</option>
-                                <option value="3">Cakes</option>
-                                <option value="4">Bagel</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="input-group">
-                            <label for="priceFilter">Price</label>
-                            <input type="text" class="form-control" id="priceFilter" />
-                        </div>
-                    </div>
-                    <div class="col-lg-2" style="margin-top:17px">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="glotanFilter"> Glotan Free
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-lg-2" style="margin-top:17px">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="veganFilter"> Vegan
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-lg-1 pull-right" style="margin-top:20px;">
-                        <button class="btn btn-default search-btn">Search</button>
-                    </div>
-                    <div class="col-lg-1 pull-right" style="margin-top:20px">
-                        <button class="btn btn-default clear-search-btn">Reset</button>
-                    </div>
-                </div>
+                }
             </div>
         </div>
     </div>
-    <div class="panel panel-default" style="margin-top:30px">
-        <div class="panel-body pastery-grid">
-            <section>
-                    @Html.Partial("Search")
-            </section>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Find your choice of Pastery</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="search-container">
+                        <div class="row" style="margin-left:0px">
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label for="nameFilter">Name</label>
+                                    <input type="text" class="form-control" id="nameFilter" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label for="typeFilter">Type</label>
+                                    <select class="form-control" id="typeFilter">
+                                        <option disabled selected></option>
+                                        <option value="1">Breads</option>
+                                        <option value="2">Cupcakes</option>
+                                        <option value="3">Cakes</option>
+                                        <option value="4">Bagel</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">
+                                <div class="input-group">
+                                    <label for="priceFilter">Price</label>
+                                    <input type="text" class="form-control" id="priceFilter" />
+                                </div>
+                            </div>
+                            <div class="col-lg-2" style="margin-top:17px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="glotanFilter"> Glotan Free
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-2" style="margin-top:17px">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="veganFilter"> Vegan
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 pull-right" style="margin-top:20px;">
+                                <button class="btn btn-default search-btn">Search</button>
+                            </div>
+                            <div class="col-lg-1 pull-right" style="margin-top:20px">
+                                <button class="btn btn-default clear-search-btn">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default" style="margin-top:30px">
+                <div class="panel-body pastery-grid">
+                    <section>
+                        @Html.Partial("Search")
+                    </section>
+                </div>
+            </div>
         </div>
-    </div>
-</div>

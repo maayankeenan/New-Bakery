@@ -36,7 +36,6 @@ namespace BakeBFlake.Controllers
             //var model = getProducts();
             var model = Repository.DAL.PastryDAL.GetAllPastries();
 
-            OrderdDAL.MostOrderedPastery();
             //PastryDAL.AddNewPastry(new Pastery("Vanilla Cupcakes", "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg", PastryType.Cupcakes, 9, string.Empty, false, false));
             //CustomerDAL.AddNewCustomer(new Customer("987654321", "Maayan", "Keenan", "66 Amishav Street Tel Aviv", "050-3233758", true,"123", true));
             //OrderdDAL.AddNewOrder(new Order(DateTime.Today, DateTime.Today.AddDays(5),0,string.Empty, OrderStatus.Accepted,"123456789"));
@@ -48,6 +47,13 @@ namespace BakeBFlake.Controllers
                 Session["Cart"] = new Order(){OrderDate = new DateTime(), OrderDetails = new System.Collections.Generic.List<OrderDetails>()};
                 Session["ItemsInCart"] = 0;
             }
+
+            var topProducts = OrderdDAL.MostOrderedPastery();
+            //var topProducts = new myClass[3];
+            //topProducts[0] = new myClass { ID = 0, Name = "abc", Image = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQDtD8t2IEb5veW4YmdjByl5NXU3WEyMlyrP01IU0MNrDgxnklL", Quantity = 20 };
+            //topProducts[1] = new myClass { ID = 0, Name = "dfg", Image = "http://img2.wikia.nocookie.net/__cb20130114141601/shipoffools/images/f/f7/Apple-pie.jpg", Quantity = 15 };
+            //topProducts[2] = new myClass { ID = 0, Name = "avhjvkhjbc", Image = "http://images.picturesdepot.com/photo/v/vanilla_cupcake-210820.jpg", Quantity = 5 };
+            ViewBag.TopProducts = topProducts;
 
             return View(model);
         }
@@ -224,7 +230,6 @@ namespace BakeBFlake.Controllers
             //    user1.IsAdmin = true;
 
             //    this.loginedUser = user1;
-            //    Session["IsAdmin"] = true;
             //}
             //else if (id == "abc")
             //{
