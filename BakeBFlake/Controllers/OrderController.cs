@@ -49,7 +49,7 @@ namespace BakeBFlake.Controllers
             //orderDetails.Add(new OrderDetails() { ID = 1, PasteryId = 2, Pastery = new Pastery() { Name = "Onion Bagel", Price = 19.9, ID = 1 }, TotalAmount = 1 });
             //orderDetails.Add(new OrderDetails() { ID = 1, PasteryId = 2, Pastery = new Pastery() { Name = "Rye Bread", Price = 19.9, ID = 1 }, TotalAmount = 1 });
             //var order = new Order() { ID = 1, OrderDate = new DateTime(2014, 10, 3), Status = Repository.Enum.OrderStatus.InProgress, TotalPrice = 89.90, OrderDetails = orderDetails };
-            var order = Repository.DAL.OrderdDAL.SelectByCriteria(id);
+            var order = Repository.DAL.OrderdDAL.SelectByCriteria(id)[0];
             ViewBag.EditOrder = true;
             Session["CurrentOrder"] = order;
             return View(order);

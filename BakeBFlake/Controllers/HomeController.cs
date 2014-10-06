@@ -29,62 +29,6 @@ namespace BakeBFlake.Controllers
 
         public ActionResult Index()
         {
-            //using (PastryContext context = new PastryContext())
-            //{
-            //    //context.Database.Connection.Open();
-
-            //    var Pastries = new List<Pastery>
-            //    {
-            //        new Pastery { ID = 0,   Name = "בורקס חלומי", 
-            //            Type = PastryType.Bagels ,Vegan=false, GlotanFree=false  },
-            //        new Pastery { ID = 1,   Name = "לחם אלוהי",
-            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
-            //        new Pastery { ID = 2,   Name = "בורקס אלוהי",
-            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
-                
-            //    };
-
-            //    Pastries.ForEach(s => context.Pastries.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Customers = new List<Customer>
-            //    {
-            //        new Customer {ID="305631491", Name="Ran", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=false},
-            //        new Customer {ID="305631490", Name="May", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=true},
-            //    };
-
-            //    Customers.ForEach(s => context.Customers.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Orders = new List<Order>
-            //    {
-            //        new Order { ID=1, OrderDate=DateTime.Today.Date, DelieveryDate=DateTime.Today.Date.AddDays(1), Status=OrderStatus.Accepted ,CustomerID="305631491"},
-            //    };
-
-            //    Orders.ForEach(s => context.Orders.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-
-
-
-            //    var OrdersDetailes = new List<OrderDetails>
-            //    {
-            //        new OrderDetails {ID=0, OrderID=1, PasteryId= 2, TotalAmount=2},
-            //    };
-
-            //    OrdersDetailes.ForEach(s => context.OrderDetailes.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Branches = new List<Branch>
-            //    {
-            //        new Branch {ID=0, Name="Ran's Pastry", X=5.0, Y=3.0},
-            //        new Branch {ID=1, Name="Rani's Pastry", X=5.0, Y=3.0},
-            //    };
-
-            //    Branches.ForEach(s => context.Branches.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-            //}
-
 
             ViewBag.Message = "Start your order right here";
 
@@ -140,7 +84,7 @@ namespace BakeBFlake.Controllers
             {
                 parsedPrice = Double.Parse(price);
             }
-            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, (PastryType)Enum.Parse(typeof(PastryType), type),parsedPrice , price, vegan, glotanFree);
+            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, (PastryType)Enum.Parse(typeof(PastryType), type), parsedPrice , null, vegan, glotanFree);
             return PartialView(model);
         }
 
@@ -258,7 +202,7 @@ namespace BakeBFlake.Controllers
                 this.loginedUser = cust;
                 return RedirectToAction("Index");
             }
-            //if(username == "admin")
+            //if (id == "admin")
             //{
             //    var user1 = new Customer();
             //    user1.ID = "999";
@@ -273,7 +217,7 @@ namespace BakeBFlake.Controllers
             //    this.loginedUser = user1;
             //    Session["IsAdmin"] = true;
             //}
-            //else if (username == "abc")
+            //else if (id == "abc")
             //{
             //    var user1 = new Customer();
             //    user1.ID = "999";
@@ -293,7 +237,7 @@ namespace BakeBFlake.Controllers
                 return View("Login");
             }
 
-            //return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }

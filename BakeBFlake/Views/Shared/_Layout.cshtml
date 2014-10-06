@@ -18,11 +18,12 @@
                 <div class="">
                     <ul class="nav nav-pills">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li data-counter="@Session["ItemsInCart"]" id="cartDisplay">@Html.ActionLink("Cart (" + Session["ItemsInCart"] + ")", "Index", "Cart")</li>
 
                         @if (Session["LoginUser"] != null) 
                         {
                             <li hidden=@ViewBag.isLoggedIn>@Html.ActionLink("Orders", "Index", "Order")</li>
-                            <li data-counter="@Session["ItemsInCart"]" id="cartDisplay">@Html.ActionLink("Cart (" + Session["ItemsInCart"] +")", "Index", "Cart")</li>
+                            
                             
                             if ((Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
                             { 

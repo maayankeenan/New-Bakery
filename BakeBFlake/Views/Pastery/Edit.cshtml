@@ -4,6 +4,16 @@
     ViewBag.Title = "Pastery Edit";
 }
 
+@section PageScripts{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selected = $('#Type').attr("data-selected-option");
+            $('#Type').val(selected);
+        });
+    </script>
+}
+
 
 @if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
 {
