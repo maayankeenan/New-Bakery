@@ -13,6 +13,24 @@ namespace Repository.DAL
 {
     public class PastryDAL
     {
+
+        public void initData()
+        {
+            List<Pastery> pasteries = new List<Pastery>();
+            pasteries.Add(new Pastery() { Name = "Choclate Cake", Type = PastryType.Cakes, GlotanFree = false, Vegan = false, Comments = "Very Delicious", Price = 9.99, ImageLink = "http://www.sparkyhub.com/wp-content/uploads/2012/02/30+delicious-chocolate-cake-pictures-you-love-4.jpg?0c9e3b" });
+            pasteries.Add(new Pastery() { Name = "Choclate Strewberry Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Comments = "Fresh Strewberry", Price = 5.49, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
+            pasteries.Add(new Pastery() { Name = "Rye Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Price = 14.90, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQDtD8t2IEb5veW4YmdjByl5NXU3WEyMlyrP01IU0MNrDgxnklL" });
+            pasteries.Add(new Pastery() { Name = "Onion Bagel", Type = PastryType.Bagels, GlotanFree = false, Vegan = false, Comments = "Dry onion", Price = 3.49, ImageLink = "http://featherstonefoods.com/wp-content/uploads/1108.jpg" });
+            pasteries.Add(new Pastery() { Name = "Red Velvet Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Comments = "Our signture cupcake", Price = 4.99, ImageLink = "http://images4.fanpop.com/image/photos/15400000/red-velvet-cupcakes-red-velvet-cupcakes-15404907-460-562.jpg" });
+            pasteries.Add(new Pastery() { Name = "Apple Pie", Type = PastryType.Cakes, GlotanFree = true, Vegan = false, Comments = "The traditional taste", Price = 24.90, ImageLink = "http://img2.wikia.nocookie.net/__cb20130114141601/shipoffools/images/f/f7/Apple-pie.jpg" });
+            pasteries.Add(new Pastery() { Name = "Oreo Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Price = 4.99, ImageLink = "http://1.bp.blogspot.com/-v304FcYagNk/TbQgccwSHzI/AAAAAAAAAFw/nrd0qURLr-I/s1600/oreo+cupcake.jpg" });
+            pasteries.Add(new Pastery() { Name = "Seaseme Bagel", Type = PastryType.Bagels, GlotanFree = false, Vegan = false, Price = 3.99, ImageLink = "http://www.gourmetmeatman.com/siteimages/sesame%20bagel.jpg" });
+            pasteries.Add(new Pastery() { Name = "Olive Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Comments = "Calamate Olieves", Price = 19.99, ImageLink = "http://www.acebakery.com/storage/products/OliveBoule.jpg" });
+            pasteries.Add(new Pastery() { Name = "Carrot Cake", Type = PastryType.Cakes, GlotanFree = true, Vegan = true, Price = 39.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS6csPHFf1EpBTZ7wvXuRN35ejVeLfeEA0oqPbvP9lkv8Byt1-J" });
+            pasteries.Add(new Pastery() { Name = "Vanilla Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Price = 4.99, ImageLink = "http://images.picturesdepot.com/photo/v/vanilla_cupcake-210820.jpg" });
+            pasteries.Add(new Pastery() { Name = "Whole Wheat Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Comments = "Very nutritious", Price = 29.99, ImageLink = "http://www.womansday.com/cm/womansday/images/IQ/What-to-Look-for-When-Buying-Bread-mdn.jpg" });
+        }
+
         public static int AddNewPastry(Pastery NewPastry)
         {
             using (PastryContext db = new PastryContext())
