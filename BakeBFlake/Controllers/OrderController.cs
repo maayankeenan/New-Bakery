@@ -9,7 +9,7 @@ namespace BakeBFlake.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Index(string customerId = null, int? price, string comments = null)
+        public ActionResult Index(int? price, string customerId = null, string comments = null)
         {
             ViewBag.Message = "Orders List";
 

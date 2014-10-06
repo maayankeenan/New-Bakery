@@ -41,10 +41,6 @@ namespace BakeBFlake.Controllers
                 Session["Cart"] = new Order(){OrderDate = new DateTime(), OrderDetails = new System.Collections.Generic.List<OrderDetails>()};
                 Session["ItemsInCart"] = 0;
             }
-            if (Session["IsAdmin"] == null)
-            {
-                Session["IsAdmin"] = false;
-            }
 
             return View(model);
         }
