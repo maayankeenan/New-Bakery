@@ -4,68 +4,79 @@
     ViewBag.Title = "Customers";
 }
 
-<h2>Customers</h2>
-
-@using (Html.BeginForm("Index", "Customer", FormMethod.Get))
+@if (Session["LoginUser"] == null || !(Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
 {
-    <p>
-        Id: @Html.TextBox("id")
-        First Name: @Html.TextBox("firstName")
-        Last Name: @Html.TextBox("lastName")
-        Address: @Html.TextBox("address")
-        <input type="submit" value="Filter" />
-    </p>
+    <div>
+        <h2>You are not authorized to view this page</h2>
+    </div>
 }
+else
+{
 
-<table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            First Name
-        </th>
-        <th>
-            Last Name
-        </th>
-        <th>
-            Address
-        </th>
-        <th>
-            Phone
-        </th>
-        <th>
-            Is Prefered
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (Repository.Models.Customer customer in Model)
+    <h2>Customers</h2>
+    
+    @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
     {
-        <tr>
-            <td>
-                @customer.ID
-            </td>
-            <td>
-                @customer.Name
-            </td>
-            <td>
-                @customer.LastName
-            </td>
-            <td>
-                @customer.Address
-            </td>
-            <td>
-                @customer.Phone
-            </td>
-            <td>
-                @customer.Prefered
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = customer.ID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = customer.ID })
-            </td>
-        </tr>
+        <p>
+            Id: @Html.TextBox("id")
+            First Name: @Html.TextBox("firstName")
+            Last Name: @Html.TextBox("lastName")
+            Address: @Html.TextBox("address")
+            <input type="submit" value="Filter" />
+        </p>
     }
 
-</table>
+    <table class="table">
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Last Name
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Phone
+            </th>
+            <th>
+                Is Prefered
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (Repository.Models.Customer customer in Model)
+        {
+            <tr>
+                <td>
+                    @customer.ID
+                </td>
+                <td>
+                    @customer.Name
+                </td>
+                <td>
+                    @customer.LastName
+                </td>
+                <td>
+                    @customer.Address
+                </td>
+                <td>
+                    @customer.Phone
+                </td>
+                <td>
+                    @customer.Prefered
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = customer.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = customer.ID })
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

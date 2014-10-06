@@ -16,7 +16,11 @@ namespace BakeBFlake.Controllers
         {
             ViewBag.Message = "Customers List";
 
-            var model = Repository.DAL.CustomerDAL.SelectByCriteria(id, firstName, lastName, address);
+            var model = new List<Customer>();
+            if ((Session["LoginUser"] != null) && (Session["LoginUser"] as Customer).IsAdmin)
+            {
+                model = Repository.DAL.CustomerDAL.SelectByCriteria(id, firstName, lastName, address);
+            }
             //var model = getUsers();
 
             return View(model);

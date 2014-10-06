@@ -4,6 +4,14 @@
     ViewBag.Title = "Edit";
 }
 
+@if (Session["LoginUser"] == null || !(Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
+{
+    <div>
+        <h2>You are not authorized to view this page</h2>
+    </div>
+}
+else
+{
 <h2>Edit</h2>
 
 @using (Html.BeginForm("Edit", "Customer")) {
@@ -56,6 +64,7 @@
             <input type="submit" value="Save" />
         </p>
     </fieldset>
+}
 }
 
 @section Scripts {
