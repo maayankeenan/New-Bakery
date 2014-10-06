@@ -9,26 +9,55 @@ namespace BakeBFlake.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Index(int? price, string customerId = null, string comments = null)
+        public ActionResult Index(bool? isPrefered = null, string id = null, string price = null, string customerId = null, string comments = null)
         {
             ViewBag.Message = "Orders List";
 
             var orders = new List<Order>();
-            if(Session["LoginUser"] != null)
+
+            int? intId;
+            bool errorId = false;
+            if (id != null)
+            {
+                try
+                {
+                    intId = int.Parse(id);
+                }
+                catch (Exception ex)
+                {
+                    errorId = true;
+                }
+            }
+
+            int? intPrice;
+            bool errorPrice = false;
+            if (id != null)
+            {
+                try
+                {
+                    intPrice = int.Parse(price);
+                }
+                catch (Exception ex)
+                {
+                    errorPrice = true;
+                }
+            }
+
+            if (Session["LoginUser"] != null)
             {
                 var cust = Session["LoginUser"] as Customer;
                 if (cust.IsAdmin)
                 {
-                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, customerId, null);
                 }
                 else
                 {
-                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, cust.ID, null);
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, cust.ID, null);
                 }
             }
 
             //var orders = new List<Order>();
-            //var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
+            //var order1 = new Order(DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
             //orders.Add(order1);
 
             return View(orders);

@@ -108,7 +108,7 @@ namespace Repository.DAL
                 }
                 if (phone != null)
                 {
-                    result = result.Where(p => p.Phone.Equals(phone)).ToList();
+                    result = result.Where(p => p.Phone.Contains(phone)).ToList();
                 }
                 if (password != null)
                 {

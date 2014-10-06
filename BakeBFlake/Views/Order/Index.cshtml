@@ -9,16 +9,15 @@
 @using (Html.BeginForm("Index", "Order", FormMethod.Get))
 {
     <p>
-        Customer Id: @Html.TextBox("customerId")
-        Total price: @Html.TextBox("price")
-        Comments: @Html.TextBox("comments")
-        <input type="submit" value="Filter" />
-    </p>
+        <b>ID</b> @Html.TextBox("id")
+        <b>Customer Id</b> @Html.TextBox("customerId")
+        <b>Max price</b> @Html.TextBox("price")
+        <b> Comments</b> @Html.TextBox("comments")
+        <b>Prefered</b> @Html.CheckBox("isPrefered")
+        <input type="submit" class="btn btn-default" value="Filter" />
+</p>
 }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table>
     <tr>
         <th>
@@ -83,11 +82,6 @@
                 var confirmButton = deleteLink.siblings(".delete-confirm");
                 confirmButton.show();
 
-                var cancelDelete = function () {
-                    removeEvents();
-                    showDeleteLink();
-                };
-
                 var deleteItem = function () {
                     removeEvents();
                     confirmButton.hide();
@@ -107,8 +101,6 @@
 
                 var removeEvents = function () {
                     confirmButton.off("click", deleteItem);
-                    $(document).on("click", cancelDelete);
-                    $(document).off("keypress", onKeyPress);
                 };
 
                 var showDeleteLink = function () {
@@ -116,16 +108,7 @@
                     deleteLink.show();
                 };
 
-                var onKeyPress = function (e) {
-                    //Cancel if escape key pressed
-                    if (e.which == 27) {
-                        cancelDelete();
-                    }
-                };
-
                 confirmButton.on("click", deleteItem);
-                $(document).on("click", cancelDelete);
-                $(document).on("keypress", onKeyPress);
 
                 return false;
             });
@@ -137,5 +120,7 @@
         });
     </script>
 }
+
+
 
 

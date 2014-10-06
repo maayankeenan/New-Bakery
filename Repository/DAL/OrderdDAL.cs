@@ -96,7 +96,7 @@ namespace Repository.DAL
             }
         }
 
-        public static List<Order> SelectByCriteria(int? OrderID = null, DateTime? OrderDate = null, DateTime? DeliveryDate = null, int? TotalAmount = null, string Comments = null, OrderStatus? Status = null, string CustomerID = null, int? pastryID = null)
+        public static List<Order> SelectByCriteria(int? OrderID = null, bool? isPrefered = null, DateTime? OrderDate = null, DateTime? DeliveryDate = null, int? TotalAmount = null, string Comments = null, OrderStatus? Status = null, string CustomerID = null, int? pastryID = null)
         {
             using (PastryContext db = new PastryContext())
             {
@@ -116,7 +116,7 @@ namespace Repository.DAL
                 }
                 if (TotalAmount != null)
                 {
-                    result = result.Where(p => p.TotalPrice.Equals(TotalAmount)).ToList();
+                    result = result.Where(p => p.TotalPrice < TotalAmount).ToList();
                 }
                 if (Comments != null)
                 {
@@ -129,6 +129,10 @@ namespace Repository.DAL
                 if (CustomerID != null)
                 {
                     result = result.Where(p => p.CustomerID.Contains(CustomerID)).ToList();
+                }
+                if (isPrefered != null)
+                {
+                    result = result.Where(p => p.Customer.Prefered == isPrefered).ToList();
                 }
                 if (pastryID != null)
                 {
