@@ -14,69 +14,97 @@ else
 {
 
     <h2>Customers</h2>
-    
-    @using (Html.BeginForm("Index", "Customer", FormMethod.Get))
-    {
-        <p>
-            Id: @Html.TextBox("id")
-            First Name: @Html.TextBox("firstName")
-            Last Name: @Html.TextBox("lastName")
-            Address: @Html.TextBox("address")
-            <input type="submit" value="Filter" />
-        </p>
-    }
 
-    <table class="table">
-        <tr>
-            <th>
-                Id
-            </th>
-            <th>
-                First Name
-            </th>
-            <th>
-                Last Name
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                Phone
-            </th>
-            <th>
-                Is Prefered
-            </th>
-            <th></th>
-        </tr>
+    <div class="col-md-10">
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>Search Customers</b></div>
+            <div class=" panel-body">
+                <form class="form-inline" role="form" action="@Url.Action("Index", "Customer")" method="get">
+                    <div class="form-group">
+                        <label class="col-sm-1 control-label" for="id"><b>ID</b></label>
+                        <div>
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="firstName"><b>Forename</b></label>
+                        <div>
+                            <input type="text" class="form-control" id="firstName" name="firstName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="lastName"><b>Surname</b></label>
+                        <div>
+                            <input type="text" class="form-control" id="lastName" name="lastName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="address"><b>Address</b></label>
+                        <div>
+                            <input type="text" class="form-control" id="address" name="address">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Filter</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
 
-        @foreach (Repository.Models.Customer customer in Model)
+                <table class="table">
+                    <tr>
+                        <th>
+                            Id
+                        </th>
+                        <th>
+                            First Name
+                        </th>
+                        <th>
+                            Last Name
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th>
+                            Is Prefered
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (Repository.Models.Customer customer in Model)
         {
-            <tr>
-                <td>
-                    @customer.ID
-                </td>
-                <td>
-                    @customer.Name
-                </td>
-                <td>
-                    @customer.LastName
-                </td>
-                <td>
-                    @customer.Address
-                </td>
-                <td>
-                    @customer.Phone
-                </td>
-                <td>
-                    @customer.Prefered
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = customer.ID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = customer.ID })
-                </td>
-            </tr>
+                        <tr>
+                            <td>
+                                @customer.ID
+                            </td>
+                            <td>
+                                @customer.Name
+                            </td>
+                            <td>
+                                @customer.LastName
+                            </td>
+                            <td>
+                                @customer.Address
+                            </td>
+                            <td>
+                                @customer.Phone
+                            </td>
+                            <td>
+                                @customer.Prefered
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = customer.ID }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = customer.ID })
+                            </td>
+                        </tr>
         }
 
-    </table>
+                </table>
 
-}
+                }
