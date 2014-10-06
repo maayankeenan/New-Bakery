@@ -27,6 +27,7 @@ namespace Repository.DAL
             : base("RanConnection")
         {
             Database.SetInitializer<PastryContext>(null);
+            this.Configuration.LazyLoadingEnabled = true;
         }
 
     }    

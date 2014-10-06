@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201410052017250_ran.Designer.cs">
       <DependentUpon>201410052017250_ran.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201410061549259_requierdForginKey.cs" />
+    <Compile Include="Migrations\201410061549259_requierdForginKey.Designer.cs">
+      <DependentUpon>201410061549259_requierdForginKey.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -75,6 +79,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201410052017250_ran.resx">
       <DependentUpon>201410052017250_ran.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410061549259_requierdForginKey.resx">
+      <DependentUpon>201410061549259_requierdForginKey.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
