@@ -11,6 +11,29 @@ namespace Repository.DAL
 {
     public class CustomerDAL
     {
+        public void initData()
+        {
+            var Customers = new List<Customer>
+                {
+                    new Customer {ID="305631491", Name="Ran", LastName="Asulin", Address="Amishav 66 Givataim", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=false},
+                    new Customer {ID="304848370", Name="May", LastName="Cohen", Address="Arlozorov 44 Tel Aviv", Phone="050-3267858", Prefered=true, Password="123456", IsAdmin=true},
+                    new Customer {ID="367867567", Name="Amikam", LastName="Snir", Address="Arlozorov 56 Tel Aviv", Phone="050-4389275", Prefered=true, Password="654321", IsAdmin=false},
+                    new Customer {ID="345674567", Name="Nir", LastName="Agai", Address="Dr cohen 13 Ramat Gan", Phone="050-4246857", Prefered=false, Password="123456", IsAdmin=false},
+                    new Customer {ID="456734564", Name="Blinki", LastName="Bill", Address="Hertzel 9 Naharia", Phone="050-3267858", Prefered=true, Password="76543", IsAdmin=false},
+                    new Customer {ID="345765687", Name="Amit", LastName="Mizrahi", Address="Beit horon 2 Ramat Gan", Phone="050-3267858", Prefered=false, Password="nbuv48", IsAdmin=false},
+                    new Customer {ID="456788978", Name="Tikva", LastName="Shasson", Address="Some street 33 Beer sheva", Phone="050-3267858", Prefered=true, Password="gt67gt678", IsAdmin=false},
+                    new Customer {ID="456786879", Name="Marina", LastName="Abutbul", Address="Nordau 21 Netanya", Phone="050-3267858", Prefered=false, Password="Aa123456", IsAdmin=false},
+                    new Customer {ID="657586747", Name="Eran", LastName="Levi", Address="Best street ever 5 Tel Aviv", Phone="050-3267858", Prefered=true, Password="tututtu", IsAdmin=false},
+                    new Customer {ID="567857898", Name="Maria", LastName="Sharapova", Address="Dizingoff 46 Tel Aviv", Phone="050-3267858", Prefered=false, Password="blaaa", IsAdmin=false},
+                    new Customer {ID="456789786", Name="Lebron", LastName="James", Address="Hamahapilim 8 Netanya", Phone="050-3267858", Prefered=true, Password="mypassword", IsAdmin=false},
+                };
+
+            foreach(var cust in Customers)
+            {
+                AddNewCustomer(cust);
+            }
+        }
+
         public static void AddNewCustomer(Customer NewCustomer)
         {
             using (PastryContext db = new PastryContext())
