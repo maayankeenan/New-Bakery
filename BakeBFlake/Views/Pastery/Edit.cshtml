@@ -4,8 +4,18 @@
     ViewBag.Title = "Pastery Edit";
 }
 
+@section PageScripts{
 
-@if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var selected = $('#Type').attr("data-selected-option");
+            $('#Type').val(selected);
+        });
+    </script>
+}
+
+
+@if (Session["LoginUser"] == null || !(Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
 {
 <div>
     <h2>You are not authorized to view this page</h2>

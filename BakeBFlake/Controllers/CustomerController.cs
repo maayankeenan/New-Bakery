@@ -12,7 +12,7 @@ namespace BakeBFlake.Controllers
         //
         // GET: /Customer/
 
-        public ActionResult Index(string id, string firstName, string lastName, string address)
+        public ActionResult Index(string id = null, string firstName = null, string lastName = null, string address = null)
         {
             ViewBag.Message = "Customers List";
 

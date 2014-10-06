@@ -48,7 +48,7 @@
             @Html.Partial("OrderDetails")
         </div>
     </div>
-    @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"])
+    @if (Session["LoginUser"] != null && (Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
     {
         <div class="pull-right">
             <a href="/Order/Edit/@Model.ID" class="btn btn-default btn-checkout">Edit</a>

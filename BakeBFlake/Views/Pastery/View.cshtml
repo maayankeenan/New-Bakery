@@ -38,7 +38,7 @@
                 <label>Comments</label>
                 <textarea class="form-control" disabled>@Model.Comments</textarea>
             </div>
-           @if (Session["IsAdmin"] != null && (bool)Session["IsAdmin"])
+           @if (Session["LoginUser"] != null && (Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
            {
                 <div>
                     <a class="btn btn-primary" href="/Pastery/Edit/@Model.ID">Edit</a>

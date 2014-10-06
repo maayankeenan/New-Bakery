@@ -9,11 +9,23 @@ namespace BakeBFlake.Controllers
 {
     public class OrderController : Controller
     {
-        public ActionResult Index(string customerId, int price, string comments)
+        public ActionResult Index(int? price, string customerId = null, string comments = null)
         {
             ViewBag.Message = "Orders List";
 
-            var orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
+            var orders = new List<Order>();
+            if(Session["LoginUser"] != null)
+            {
+                var cust = Session["LoginUser"] as Customer;
+                if (cust.IsAdmin)
+                {
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, customerId, null);
+                }
+                else
+                {
+                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(null, null, null, price, comments, null, cust.ID, null);
+                }
+            }
 
             //var orders = new List<Order>();
             //var order1 = new Order(123, DateTime.Now, DateTime.Now, 654, "vfdsvs", Repository.Enum.OrderStatus.Accepted, "6532");
@@ -49,7 +61,7 @@ namespace BakeBFlake.Controllers
             //orderDetails.Add(new OrderDetails() { ID = 1, PasteryId = 2, Pastery = new Pastery() { Name = "Onion Bagel", Price = 19.9, ID = 1 }, TotalAmount = 1 });
             //orderDetails.Add(new OrderDetails() { ID = 1, PasteryId = 2, Pastery = new Pastery() { Name = "Rye Bread", Price = 19.9, ID = 1 }, TotalAmount = 1 });
             //var order = new Order() { ID = 1, OrderDate = new DateTime(2014, 10, 3), Status = Repository.Enum.OrderStatus.InProgress, TotalPrice = 89.90, OrderDetails = orderDetails };
-            var order = Repository.DAL.OrderdDAL.SelectByCriteria(id);
+            var order = Repository.DAL.OrderdDAL.SelectByCriteria(id)[0];
             ViewBag.EditOrder = true;
             Session["CurrentOrder"] = order;
             return View(order);

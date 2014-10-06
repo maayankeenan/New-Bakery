@@ -30,62 +30,6 @@ namespace BakeBFlake.Controllers
 
         public ActionResult Index()
         {
-            //using (PastryContext context = new PastryContext())
-            //{
-            //    //context.Database.Connection.Open();
-
-            //    var Pastries = new List<Pastery>
-            //    {
-            //        new Pastery { ID = 0,   Name = "בורקס חלומי", 
-            //            Type = PastryType.Bagels ,Vegan=false, GlotanFree=false  },
-            //        new Pastery { ID = 1,   Name = "לחם אלוהי",
-            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
-            //        new Pastery { ID = 2,   Name = "בורקס אלוהי",
-            //            Type = PastryType.Breads ,Vegan=false, GlotanFree=false  },
-                
-            //    };
-
-            //    Pastries.ForEach(s => context.Pastries.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Customers = new List<Customer>
-            //    {
-            //        new Customer {ID="305631491", Name="Ran", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=false},
-            //        new Customer {ID="305631490", Name="May", LastName="Asulin", Address="Amishav 66 Tel Aviv", Phone="050-3233758", Prefered=true, Password="123", IsAdmin=true},
-            //    };
-
-            //    Customers.ForEach(s => context.Customers.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Orders = new List<Order>
-            //    {
-            //        new Order { ID=1, OrderDate=DateTime.Today.Date, DelieveryDate=DateTime.Today.Date.AddDays(1), Status=OrderStatus.Accepted ,CustomerID="305631491"},
-            //    };
-
-            //    Orders.ForEach(s => context.Orders.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-
-
-
-            //    var OrdersDetailes = new List<OrderDetails>
-            //    {
-            //        new OrderDetails {ID=0, OrderID=1, PasteryId= 2, TotalAmount=2},
-            //    };
-
-            //    OrdersDetailes.ForEach(s => context.OrderDetailes.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-
-            //    var Branches = new List<Branch>
-            //    {
-            //        new Branch {ID=0, Name="Ran's Pastry", X=5.0, Y=3.0},
-            //        new Branch {ID=1, Name="Rani's Pastry", X=5.0, Y=3.0},
-            //    };
-
-            //    Branches.ForEach(s => context.Branches.AddOrUpdate(p => p.ID, s));
-            //    context.SaveChanges();
-            //}
-
 
             ViewBag.Message = "Start your order right here";
 
@@ -104,25 +48,27 @@ namespace BakeBFlake.Controllers
                 Session["Cart"] = new Order(){OrderDate = new DateTime(), OrderDetails = new System.Collections.Generic.List<OrderDetails>()};
                 Session["ItemsInCart"] = 0;
             }
-            if (Session["IsAdmin"] == null)
-            {
-                Session["IsAdmin"] = false;
-            }
 
             return View(model);
         }
 
         private System.Collections.Generic.List<Pastery> getProducts()
         {
-            var model = new System.Collections.Generic.List<Pastery>();
+            List<Pastery> pasteries = new List<Pastery>();
+            pasteries.Add(new Pastery() { Name = "Choclate Cake", Type = PastryType.Cakes, GlotanFree = false, Vegan = false, Comments = "Very Delicious", Price = 9.99, ImageLink = "http://www.sparkyhub.com/wp-content/uploads/2012/02/30+delicious-chocolate-cake-pictures-you-love-4.jpg?0c9e3b" });
+            pasteries.Add(new Pastery() { Name = "Choclate Strewberry Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Comments = "Fresh Strewberry", Price = 5.49, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
+            pasteries.Add(new Pastery() { Name = "Rye Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Price = 14.90, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQDtD8t2IEb5veW4YmdjByl5NXU3WEyMlyrP01IU0MNrDgxnklL" });
+            pasteries.Add(new Pastery() { Name = "Onion Bagel", Type = PastryType.Bagels, GlotanFree = false, Vegan = false, Comments = "Dry onion", Price = 3.49, ImageLink = "http://featherstonefoods.com/wp-content/uploads/1108.jpg" });
+            pasteries.Add(new Pastery() { Name = "Red Velvet Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Comments = "Our signture cupcake", Price = 4.99, ImageLink = "http://images4.fanpop.com/image/photos/15400000/red-velvet-cupcakes-red-velvet-cupcakes-15404907-460-562.jpg" });
+            pasteries.Add(new Pastery() { Name = "Apple Pie", Type = PastryType.Cakes, GlotanFree = true, Vegan = false, Comments = "The traditional taste", Price = 24.90, ImageLink = "http://img2.wikia.nocookie.net/__cb20130114141601/shipoffools/images/f/f7/Apple-pie.jpg" });
+            pasteries.Add(new Pastery() { Name = "Oreo Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Price = 4.99, ImageLink = "http://1.bp.blogspot.com/-v304FcYagNk/TbQgccwSHzI/AAAAAAAAAFw/nrd0qURLr-I/s1600/oreo+cupcake.jpg" });
+            pasteries.Add(new Pastery() { Name = "Seaseme Bagel", Type = PastryType.Bagels, GlotanFree = false, Vegan = false, Price = 3.99, ImageLink = "http://www.gourmetmeatman.com/siteimages/sesame%20bagel.jpg" });
+            pasteries.Add(new Pastery() { Name = "Olive Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Comments = "Calamate Olieves", Price = 19.99, ImageLink = "http://www.acebakery.com/storage/products/OliveBoule.jpg" });
+            pasteries.Add(new Pastery() { Name = "Carrot Cake", Type = PastryType.Cakes, GlotanFree = true, Vegan = true, Price = 39.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS6csPHFf1EpBTZ7wvXuRN35ejVeLfeEA0oqPbvP9lkv8Byt1-J" });
+            pasteries.Add(new Pastery() { Name = "Vanilla Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Price = 4.99, ImageLink = "http://images.picturesdepot.com/photo/v/vanilla_cupcake-210820.jpg" });
+            pasteries.Add(new Pastery() { Name = "Whole Wheat Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Comments = "Very nutritious", Price = 29.99, ImageLink = "http://www.womansday.com/cm/womansday/images/IQ/What-to-Look-for-When-Buying-Bread-mdn.jpg" });
 
-            model.Add(new Pastery() { ID = 1, Name = "Whole Wheat Bread", Price = 9.99, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
-            model.Add(new Pastery() { ID = 2, Name = "Rye Bread", Price = 9.99, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
-            model.Add(new Pastery() { ID = 3, Name = "Vanilla Cupcakes", Price = 9.99, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
-            model.Add(new Pastery() { ID = 4, Name = "Choclate Cake", Price = 9.99, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
-            model.Add(new Pastery() { ID = 5, Name = "Onion Bagel", Price = 9.99, ImageLink = "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg" });
-
-            return model;
+            return pasteries;
         }
 
         public PartialViewResult Search(string name, string type, string price, bool? glotanFree, bool? vegan)
@@ -147,7 +93,7 @@ namespace BakeBFlake.Controllers
             {
                 parsedPrice = Double.Parse(price);
             }
-            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, (PastryType)Enum.Parse(typeof(PastryType), type),parsedPrice , price, vegan, glotanFree);
+            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, (PastryType)Enum.Parse(typeof(PastryType), type), parsedPrice , null, vegan, glotanFree);
             return PartialView(model);
         }
 
@@ -265,7 +211,7 @@ namespace BakeBFlake.Controllers
                 this.loginedUser = cust;
                 return RedirectToAction("Index");
             }
-            //if(username == "admin")
+            //if (id == "admin")
             //{
             //    var user1 = new Customer();
             //    user1.ID = "999";
@@ -280,7 +226,7 @@ namespace BakeBFlake.Controllers
             //    this.loginedUser = user1;
             //    Session["IsAdmin"] = true;
             //}
-            //else if (username == "abc")
+            //else if (id == "abc")
             //{
             //    var user1 = new Customer();
             //    user1.ID = "999";
@@ -300,7 +246,7 @@ namespace BakeBFlake.Controllers
                 return View("Login");
             }
 
-            //return RedirectToAction("Index");
+            return RedirectToAction("Index");
         }
     }
 }

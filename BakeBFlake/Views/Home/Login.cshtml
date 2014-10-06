@@ -2,48 +2,45 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+    <div class="col-md-offset-3 col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading"><b>@ViewBag.Title</b></div>
+            <div class="panel-body">
 
-@if (!string.IsNullOrEmpty(ViewBag.Message))
-{
-    <h3>@ViewBag.Message</h3>
-}
+                @if (!string.IsNullOrEmpty(ViewBag.Message))
+                {
+                    <h5 class="col-md-offset-2">@ViewBag.Message</h5>
+                }
 
-<form action="Login" method="post">
+                <form class="form-horizontal" role="form" action="Login" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="id"><b>ID</b></label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="id" name="id">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="password"><b>Password</b></label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default">Login</button>
+                        </div>
+                    </div>
+                </form>
 
-    <table>
-        <tr>
-            <td>
-                Id:
-            </td>
-            <td>
-                <input type="text" id="id" name="id" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Password:
-            </td>
-            <td>
-                <input type="password" id="password" name="password" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div style="margin-top:10px;">
-                    <input type="submit" value="Login" />
-                </div>
+                <br />
 
-            </td>
-        </tr>
+                <h2>New User?</h2>
+                <span class="detail_button">
+                    @Html.ActionLink("Register Now!", "Register", "Home")
+                </span>
 
-    </table>
+            </div>
+        </div>
+    </div>
 
-    <br />
 
-    <h2>New User?</h2>
-    <span class="detail_button">
-        @Html.ActionLink("Register", "Register", "Home")
-    </span>
-
-</form>

@@ -7,7 +7,7 @@
 <h3>New Products</h3>
 <div class="panel">
     <div class="panel-body">
-        @if (Session["IsAdmin"] == null || !(bool)Session["IsAdmin"])
+        @if (Session["LoginUser"] == null || !(Session["LoginUser"] as Repository.Models.Customer).IsAdmin)
         {
             <div>
                 <h2>You are not authorized to view this page</h2>
@@ -30,7 +30,13 @@
 
                     <div class="form-group">
                         <label>Type</label>
-                        <input class="form-control" type="text" id="Type" name="Type" />
+                        <select class="form-control" id="Type" name="Type" style="width:20%">
+                            <option disabled selected></option>
+                            <option value="1">Breads</option>
+                            <option value="2">Cupcakes</option>
+                            <option value="3">Cakes</option>
+                            <option value="4">Bagel</option>
+                        </select>
                     </div>
 
                     <div class="cform-group">
