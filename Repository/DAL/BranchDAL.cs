@@ -31,5 +31,16 @@ namespace Repository.DAL
                 return db.Branches.ToList();
             }
         }
+
+        public static int AddBranch(Branch branch)
+        {
+            using (PastryContext db = new PastryContext())
+            {
+                db.Branches.Add(branch);
+                db.SaveChanges();
+
+                return branch.ID;
+            }
+        }
     }
 }

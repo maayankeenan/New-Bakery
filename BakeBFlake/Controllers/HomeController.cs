@@ -1,6 +1,7 @@
 ﻿using Repository.DAL;
 using Repository.Enum;
 using Repository.Models;
+using Repository.DAL;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,12 @@ namespace BakeBFlake.Controllers
 
             //var model = getProducts();
             var model = Repository.DAL.PastryDAL.GetAllPastries();
+
+            OrderdDAL.MostOrderedPastery();
+            //PastryDAL.AddNewPastry(new Pastery("Vanilla Cupcakes", "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg", PastryType.Cupcakes, 9, string.Empty, false, false));
+            //CustomerDAL.AddNewCustomer(new Customer("987654321", "Maayan", "Keenan", "66 Amishav Street Tel Aviv", "050-3233758", true,"123", true));
+            //OrderdDAL.AddNewOrder(new Order(DateTime.Today, DateTime.Today.AddDays(5),0,string.Empty, OrderStatus.Accepted,"123456789"));
+
 
             //Init cart
             if (Session["Cart"] == null)

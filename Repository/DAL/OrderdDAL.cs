@@ -12,6 +12,7 @@ namespace Repository.DAL
 {
     public class OrderdDAL
     {
+
         public static int AddNewOrder(Order NewOrder)
         {
             using (PastryContext db = new PastryContext())
@@ -29,12 +30,11 @@ namespace Repository.DAL
             {
                 return db.Orders.ToList();
             }
-
         }
 
         public static void UpdateOrder(Order OrderToUpdate)
         {
-            using (var db = new PastryContext())
+            using (PastryContext db = new PastryContext())
             {
                 db.Orders.AddOrUpdate(OrderToUpdate);
                 int num = db.SaveChanges();
@@ -51,6 +51,15 @@ namespace Repository.DAL
             }
         }
 
+        public static void DeleteAllRelatedOrders(ICollection<Order> allUserOrders)
+        {
+            foreach (Order o in allUserOrders)
+            {
+                o.OrderDetails.Clear();
+                DeleteOrder(o.ID);
+            }
+        }
+
         public static void DeleteOrder(Int32 orderIDToRemove)
         {
             using (PastryContext db = new PastryContext())
@@ -62,7 +71,7 @@ namespace Repository.DAL
             }
         }
 
-        public static void MostOrderedPastery()
+        public static Array MostOrderedPastery()
         {
             using (PastryContext db = new PastryContext())
             {
@@ -80,6 +89,8 @@ namespace Repository.DAL
                                  Quantity = g.Sum(y => y.TotalAmount)
                              });
 
+
+                return query.ToArray();
             }
         }
 

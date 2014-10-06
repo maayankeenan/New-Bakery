@@ -21,9 +21,8 @@ namespace Repository.Models
         public virtual Customer Customer { get; set; }
         public virtual List<OrderDetails> OrderDetails { get; set; }
 
-        public Order (Int32 OrderID, DateTime OrderDate, DateTime DeliveryDate, int TotalAmount, string Comments, OrderStatus Status, string CustomerID)
+        public Order ( DateTime OrderDate, DateTime DeliveryDate, int TotalAmount, string Comments, OrderStatus Status, string CustomerID)
         {
-            this.ID = OrderID;
             this.OrderDate = OrderDate;
             this.DelieveryDate = DeliveryDate;
             this.TotalPrice = TotalAmount;
