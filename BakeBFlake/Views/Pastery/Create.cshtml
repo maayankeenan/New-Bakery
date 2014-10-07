@@ -4,6 +4,45 @@
     ViewBag.Title = "Create New Product";
 }
 
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.btn-save').click(function () {
+
+                var valLabel = "<label class='validation-label'>field is required</label>";
+                var valid = true;
+
+                if (!$('#Name').val()) {
+                    $('#Name').addClass('has-error');
+                    $('#Name').append(valLabel);
+                    valid = false;
+                }
+                if (!$('#Price').val()) {
+                    $('#Price').addClass('has-error');
+                    $('#Price').append(valLabel);
+                    valid = false;
+                }
+                if (!$('#Type').val()) {
+                    $('#Type').addClass('has-error');
+                    $('#Type').append(valLabel);
+                    valid = false;
+                }
+                if (!$('#ImageLink').val()) {
+                    $('#ImageLink').addClass('has-error');
+                    $('#ImageLink').append(valLabel);
+                    valid = false;
+                }
+
+                if (valid) {
+                    $('#pasteryForm').submit();
+                }
+
+            });
+        });
+    </script>
+
 <h3>New Products</h3>
 <div class="panel">
     <div class="panel-body">
@@ -16,7 +55,7 @@
         else
         {
             <div class="pull-left" style="width:70%">
-                <form method="post" action="/Pastery/Create">
+                <form id="pasteryForm" method="post" action="/Pastery/Create">
                     
                     <div class="form-group">
                         <label>Name</label>
@@ -64,7 +103,7 @@
                     </div>
 
                     <div>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <button class="btn btn-primary btn-save">Save</button>
                     </div>
                 </form>
             </div>
