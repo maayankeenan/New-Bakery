@@ -32,7 +32,13 @@
     <div class="order-content">
         @Html.Partial("OrderDetails")
         <div class="pull-right">
+            @if (Session["LoginUser"] != null) { 
             <a href="/Cart/Checkout" class="btn btn-success btn-checkout">Checkout<span> >></span></a>
+            }
+            else
+            {
+                <label>You must login in order to checkout</label>
+            }
         </div>
     </div>
 </div>

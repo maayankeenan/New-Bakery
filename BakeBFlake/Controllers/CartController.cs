@@ -34,6 +34,8 @@ namespace BakeBFlake.Controllers
         {
             //save order to db and return order model
             var order = (Order)Session["Cart"];
+            order.CustomerID = (Session["LoginUser"] as Customer).ID;
+
             try
             {
                 Repository.DAL.OrderdDAL.AddNewOrder(order);
