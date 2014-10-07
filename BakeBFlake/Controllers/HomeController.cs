@@ -55,6 +55,7 @@ namespace BakeBFlake.Controllers
             //topProducts[2] = new myClass { ID = 0, Name = "avhjvkhjbc", Image = "http://images.picturesdepot.com/photo/v/vanilla_cupcake-210820.jpg", Quantity = 5 };
             ViewBag.TopProducts = topProducts;
 
+
             return View(model);
         }
 
