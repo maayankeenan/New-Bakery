@@ -53,7 +53,7 @@ else
                         </div>
                         <div class="col-md-3 form-group">
                             <label>Delievery Date</label>
-                            @if (Model.DelieveryDate != DateTime.MinValue)
+                            @if (Model.DelieveryDate != null && Model.DelieveryDate != DateTime.MinValue)
                         {
                                 <input type="text" id="DelieveryDate" name="DelieveryDate" value="@Model.DelieveryDate.ToShortDateString()" />
                         }

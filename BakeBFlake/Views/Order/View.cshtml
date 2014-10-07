@@ -20,7 +20,7 @@
                     <div class="col-md-3">
                         <label>Delievery Date</label>
                         <label>
-                            @if (Model.DelieveryDate != DateTime.MinValue)
+                            @if (Model.DelieveryDate != null && Model.DelieveryDate != DateTime.MinValue)
                             {
                                 @Model.DelieveryDate.ToShortDateString()
                             }
