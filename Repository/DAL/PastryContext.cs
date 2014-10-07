@@ -17,10 +17,12 @@ namespace Repository.DAL
         public DbSet<Pastery> Pastries { get; set; }
         public DbSet<Branch> Branches { get; set; }
 
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+
+
         }
 
         public PastryContext()
@@ -28,7 +30,18 @@ namespace Repository.DAL
         {
             Database.SetInitializer<PastryContext>(null);
             this.Configuration.LazyLoadingEnabled = true;
+
         }
 
-    }    
+        public static void InitDatabase()
+        {
+            // Init DB
+            CustomerDAL.initData();
+            PastryDAL.initData();
+            BranchDAL.initData();
+            OrderdDAL.initData();
+
+        }
+
+    }
 }

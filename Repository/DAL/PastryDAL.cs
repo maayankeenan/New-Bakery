@@ -13,8 +13,9 @@ namespace Repository.DAL
 {
     public class PastryDAL
     {
+        static PastryContext db = new PastryContext();
 
-        public void initData()
+        public static void initData()
         {
             List<Pastery> pasteries = new List<Pastery>();
             pasteries.Add(new Pastery() { Name = "Choclate Cake", Type = PastryType.Cakes, GlotanFree = false, Vegan = false, Comments = "Very Delicious", Price = 9.99, ImageLink = "http://www.sparkyhub.com/wp-content/uploads/2012/02/30+delicious-chocolate-cake-pictures-you-love-4.jpg?0c9e3b" });
@@ -29,43 +30,48 @@ namespace Repository.DAL
             pasteries.Add(new Pastery() { Name = "Carrot Cake", Type = PastryType.Cakes, GlotanFree = true, Vegan = true, Price = 39.99, ImageLink = "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcS6csPHFf1EpBTZ7wvXuRN35ejVeLfeEA0oqPbvP9lkv8Byt1-J" });
             pasteries.Add(new Pastery() { Name = "Vanilla Cupcake", Type = PastryType.Cupcakes, GlotanFree = false, Vegan = false, Price = 4.99, ImageLink = "http://images.picturesdepot.com/photo/v/vanilla_cupcake-210820.jpg" });
             pasteries.Add(new Pastery() { Name = "Whole Wheat Bread", Type = PastryType.Breads, GlotanFree = false, Vegan = false, Comments = "Very nutritious", Price = 29.99, ImageLink = "http://www.womansday.com/cm/womansday/images/IQ/What-to-Look-for-When-Buying-Bread-mdn.jpg" });
+
+            foreach (var pastery in pasteries)
+            {
+                AddNewPastry(pastery);
+            }
         }
 
         public static int AddNewPastry(Pastery NewPastry)
         {
-            using (PastryContext db = new PastryContext())
-            {
-                db.Pastries.Add(NewPastry);
-                db.SaveChanges();
+            //using (PastryContext db = new PastryContext())
+            //{
+            Contexts.DB.Pastries.Add(NewPastry);
+            Contexts.DB.SaveChanges();
 
-                return NewPastry.ID;
-            }
+            return NewPastry.ID;
+            //}
         }
 
         public static List<Pastery> GetAllPastries()
         {
-            using (PastryContext db = new PastryContext())
-            {
-                return db.Pastries.ToList();
-            }
+            //using (PastryContext Contexts.DB = new PastryContext())
+            //{
+            return Contexts.DB.Pastries.ToList();
+            //}
         }
 
 
 
         public static void UpdatePastry(Pastery PastryToUpdate)
         {
-            using (var db = new PastryContext())
+            //using (var Contexts.DB = new PastryContext())
             {
-                db.Pastries.AddOrUpdate(PastryToUpdate);
-                int num = db.SaveChanges();
+                Contexts.DB.Pastries.AddOrUpdate(PastryToUpdate);
+                int num = Contexts.DB.SaveChanges();
             }
         }
 
         public static Pastery GetPatry(int pastryID)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                return (from past in db.Pastries
+                return (from past in Contexts.DB.Pastries
                         where past.ID == pastryID
                         select past).FirstOrDefault();
             }
@@ -73,27 +79,27 @@ namespace Repository.DAL
 
         public static void DeletePastry(Pastery PastryToRemove)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
                 var pastry = GetPatry(PastryToRemove.ID);
+                OrderdDAL.DeleteAllRelatedDetails(pastry.OrdersDetailes);
+                Contexts.DB.Entry(pastry).State = EntityState.Deleted;
 
-                db.Entry(pastry).State = EntityState.Deleted;
-
-                int num = db.SaveChanges();
+                int num = Contexts.DB.SaveChanges();
             }
         }
 
-        public static List<Pastery> SelectByCriteria(int? pasID = null, string pasName = null, PastryType? pasType = null, Double? pasPrice = null, string pasComments = null, bool? pasVegan = null, bool? pasGlotanFree = null)
+        public static List<Pastery> SelectByCriteria(int? pasID = null, string pasName = null, PastryType? pasType = null, Double? pasPrice = null, bool? pasVegan = null, bool? pasGlotanFree = null)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                IList<Pastery> result = db.Pastries.ToList();
+                IList<Pastery> result = Contexts.DB.Pastries.ToList();
 
                 if (pasID != null)
                 {
                     result = result.Where(p => p.ID.Equals(pasID)).ToList();
                 }
-                if (pasName != null)
+                if (pasName != "" && pasName != null)
                 {
                     result = result.Where(p => p.Name.ToLower().Contains(pasName.ToLower())).ToList();
                 }
@@ -104,10 +110,6 @@ namespace Repository.DAL
                 if (pasPrice != null)
                 {
                     result = result.Where(p => p.Price == pasPrice).ToList();
-                }
-                if (pasComments != null)
-                {
-                    result = result.Where(p => p.Comments.Contains(pasComments)).ToList();
                 }
                 if (pasVegan != null)
                 {

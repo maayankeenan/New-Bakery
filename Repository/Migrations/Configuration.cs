@@ -1,5 +1,6 @@
 namespace Repository.Migrations
 {
+    using Repository.DAL;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,8 @@ namespace Repository.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            PastryContext.InitDatabase();
         }
     }
 }

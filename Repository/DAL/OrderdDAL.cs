@@ -7,18 +7,36 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using Repository.Enum;
+using BakeBFlake.Controllers;
 
 namespace Repository.DAL
 {
     public class OrderdDAL
     {
 
+        public static void initData()
+        {
+            var Orders = new List<Order>
+                {
+                    new Order(){CustomerID="305631491", Status=OrderStatus.Accepted, OrderDate=DateTime.Today.AddDays(-1), DelieveryDate=DateTime.Today.AddDays(2), OrderDetails=new List<OrderDetails>(){new OrderDetails(){PasteryId=3, TotalAmount=9}}},
+                    new Order(){CustomerID="304848370", Status=OrderStatus.Accepted, OrderDate=DateTime.Today.AddDays(-1), DelieveryDate=DateTime.Today.AddDays(2), OrderDetails=new List<OrderDetails>(){new OrderDetails(){PasteryId=4, TotalAmount=5}}},
+                    new Order(){CustomerID="456734564", Status=OrderStatus.InProgress, OrderDate=DateTime.Today.AddDays(-1), DelieveryDate=DateTime.Today.AddDays(2), OrderDetails=new List<OrderDetails>(){new OrderDetails(){PasteryId=10, TotalAmount=5}}},
+                    new Order(){CustomerID="987654321", Status=OrderStatus.Accepted, OrderDate=DateTime.Today.AddDays(-1), DelieveryDate=DateTime.Today.AddDays(2), OrderDetails=new List<OrderDetails>(){new OrderDetails(){PasteryId=15, TotalAmount=20}}},
+                    new Order(){CustomerID="657586747", Status=OrderStatus.Accepted, OrderDate=DateTime.Today.AddDays(-1), DelieveryDate=DateTime.Today.AddDays(2), OrderDetails=new List<OrderDetails>(){new OrderDetails(){PasteryId=7, TotalAmount=36}}}
+                };
+
+            foreach (var ord in Orders)
+            {
+                AddNewOrder(ord);
+            }
+        }
+
         public static int AddNewOrder(Order NewOrder)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                db.Orders.Add(NewOrder);
-                db.SaveChanges();
+                Contexts.DB.Orders.Add(NewOrder);
+                Contexts.DB.SaveChanges();
 
                 return NewOrder.ID;
             }
@@ -26,26 +44,26 @@ namespace Repository.DAL
 
         public static List<Order> GetAllOrders()
         {
-            using (PastryContext db = new PastryContext())
+            //\\//using (PastryContext Contexts.DB = new PastryContext())
             {
-                return db.Orders.ToList();
+                return Contexts.DB.Orders.ToList();
             }
         }
 
         public static void UpdateOrder(Order OrderToUpdate)
         {
-            using (PastryContext db = new PastryContext())
+            //\\//using (PastryContext Contexts.DB = new PastryContext())
             {
-                db.Orders.AddOrUpdate(OrderToUpdate);
-                int num = db.SaveChanges();
+                Contexts.DB.Orders.AddOrUpdate(OrderToUpdate);
+                int num = Contexts.DB.SaveChanges();
             }
         }
 
         public static Order GetOrder(Int32 orderID)
         {
-            using (PastryContext db = new PastryContext())
+            //\\//using (PastryContext Contexts.DB = new PastryContext())
             {
-                return (from ord in db.Orders
+                return (from ord in Contexts.DB.Orders
                         where ord.ID == orderID
                         select ord).FirstOrDefault();
             }
@@ -60,18 +78,27 @@ namespace Repository.DAL
             }
         }
 
-        public static void DeleteOrder(Int32 orderIDToRemove)
+        public static void DeleteAllRelatedDetails(ICollection<OrderDetails> allDetails)
         {
-            using (PastryContext db = new PastryContext())
-            {
-                var order = GetOrder(orderIDToRemove);
-                db.Entry(order).State = EntityState.Deleted;
+            List<OrderDetails> details = allDetails.ToList();
 
-                int num = db.SaveChanges();
+            foreach (OrderDetails ord in details)
+            {
+                OrderDetailsDAL.DeleteOrderDetails(ord);
             }
         }
 
-        public static Array MostOrderedPastery()
+        public static void DeleteOrder(Int32 orderIDToRemove)
+        {
+            ////using (PastryContext Contexts.DB = new PastryContext())
+            {
+                var order = GetOrder(orderIDToRemove);
+                Contexts.DB.Entry(order).State = EntityState.Deleted;
+
+                int num = Contexts.DB.SaveChanges();
+            }
+        }
+        public static List<myClass> MostOrderedPastery()
         {
             using (PastryContext db = new PastryContext())
             {
@@ -83,7 +110,7 @@ namespace Repository.DAL
                              join p in db.Pastries on op.PasteryId equals p.ID
                              select new { op.PasteryId, op.TotalAmount, p.Name, p.ImageLink } into x
                              group x by new { x.PasteryId, x.Name, x.ImageLink } into g
-                             select new
+                             select new myClass
                              {
                                  Name = g.Key.Name,
                                  Image = g.Key.ImageLink,
@@ -92,15 +119,15 @@ namespace Repository.DAL
                              });
 
 
-                return query.ToArray();
+                return query.ToList<myClass>();//.ToArray();
             }
         }
 
         public static List<Order> SelectByCriteria(int? OrderID = null, bool? isPrefered = null, DateTime? OrderDate = null, DateTime? DeliveryDate = null, int? TotalAmount = null, string Comments = null, OrderStatus? Status = null, string CustomerID = null, int? pastryID = null)
         {
-            using (PastryContext db = new PastryContext())
+            ////using (PastryContext Contexts.DB = new PastryContext())
             {
-                IList<Order> result = db.Orders.ToList();
+                IList<Order> result = Contexts.DB.Orders.ToList();
 
                 if (OrderID != null)
                 {
@@ -118,7 +145,7 @@ namespace Repository.DAL
                 {
                     result = result.Where(p => p.TotalPrice < TotalAmount).ToList();
                 }
-                if (Comments != null)
+                if (Comments != null && Comments != "")
                 {
                     result = result.Where(p => p.Comments.Contains(Comments)).ToList();
                 }

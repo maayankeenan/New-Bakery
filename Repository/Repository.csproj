@@ -50,8 +50,10 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="DAL\BranchDAL.cs" />
+    <Compile Include="DAL\Contexts.cs" />
     <Compile Include="DAL\CustomerDAL.cs" />
     <Compile Include="DAL\OrderdDAL.cs" />
+    <Compile Include="DAL\OrderDetailsDAL.cs" />
     <Compile Include="DAL\PastryContext.cs" />
     <Compile Include="DAL\PastryDAL.cs" />
     <Compile Include="Enum\OrderStatus.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Branch.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\myClass.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\OrderDetails.cs" />
     <Compile Include="Models\Pastery.cs" />

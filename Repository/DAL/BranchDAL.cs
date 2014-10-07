@@ -9,7 +9,7 @@ namespace Repository.DAL
 {
     public class BranchDAL
     {
-        public void initData()
+        public static void initData()
         {
             var Branches = new List<Branch>
                 {
@@ -20,24 +20,24 @@ namespace Repository.DAL
 
             foreach (var branch in Branches)
             {
-                //AddNewBranch(branch);
+                AddBranch(branch);
             }
         }
 
         public static List<Branch> allBranches()
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext db = new PastryContext())
             {
-                return db.Branches.ToList();
+                return Contexts.DB.Branches.ToList();
             }
         }
 
         public static int AddBranch(Branch branch)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext db = new PastryContext())
             {
-                db.Branches.Add(branch);
-                db.SaveChanges();
+                Contexts.DB.Branches.Add(branch);
+                Contexts.DB.SaveChanges();
 
                 return branch.ID;
             }

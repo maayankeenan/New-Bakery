@@ -36,6 +36,7 @@ namespace BakeBFlake.Controllers
             //var model = getProducts();
             var model = Repository.DAL.PastryDAL.GetAllPastries();
 
+            
             //PastryDAL.AddNewPastry(new Pastery("Vanilla Cupcakes", "http://www.localfranchiseopportunities.net/images/food-franchise-opportunities/food-franchise-opportunities-wyoming.jpg", PastryType.Cupcakes, 9, string.Empty, false, false));
             //CustomerDAL.AddNewCustomer(new Customer("987654321", "Maayan", "Keenan", "66 Amishav Street Tel Aviv", "050-3233758", true,"123", true));
             //OrderdDAL.AddNewOrder(new Order(DateTime.Today, DateTime.Today.AddDays(5),0,string.Empty, OrderStatus.Accepted,"123456789"));
@@ -95,12 +96,21 @@ namespace BakeBFlake.Controllers
             //    model.Add(new Pastery() { ID = 5, Name = "Onion Bagel", Price = 9.99 });
             //}
 
+            
             double? parsedPrice = null;
-            if (price != null)
+            if (price != "" && price != null)
             {
                 parsedPrice = Double.Parse(price);
             }
-            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, (PastryType)Enum.Parse(typeof(PastryType), type), parsedPrice , null, vegan, glotanFree);
+
+            PastryType? sType = null;
+
+            if (type != "" && type != null)
+            {
+                sType = (PastryType)Enum.Parse(typeof(PastryType), type);
+            }
+
+            var model = Repository.DAL.PastryDAL.SelectByCriteria(null, name, sType, parsedPrice, vegan, glotanFree);
             return PartialView(model);
         }
 

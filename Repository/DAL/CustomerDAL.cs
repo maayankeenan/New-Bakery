@@ -11,7 +11,7 @@ namespace Repository.DAL
 {
     public class CustomerDAL
     {
-        public void initData()
+        public static void initData()
         {
             var Customers = new List<Customer>
                 {
@@ -28,7 +28,7 @@ namespace Repository.DAL
                     new Customer {ID="456789786", Name="Lebron", LastName="James", Address="Hamahapilim 8 Netanya", Phone="050-3267858", Prefered=true, Password="mypassword", IsAdmin=false},
                 };
 
-            foreach(var cust in Customers)
+            foreach (var cust in Customers)
             {
                 AddNewCustomer(cust);
             }
@@ -36,83 +36,83 @@ namespace Repository.DAL
 
         public static void AddNewCustomer(Customer NewCustomer)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
 
-                db.Customers.Add(NewCustomer);
-                db.SaveChanges();
+                Contexts.DB.Customers.Add(NewCustomer);
+                Contexts.DB.SaveChanges();
 
             }
         }
 
         public static List<Customer> GetAllCustomers()
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                return db.Customers.ToList();
+                return Contexts.DB.Customers.ToList();
             }
 
         }
 
         public static void UpdateCustomer(Customer customerToUpdate)
         {
-            using (var db = new PastryContext())
+            //using (var Contexts.DB = new PastryContext())
             {
-                db.Customers.AddOrUpdate(customerToUpdate);
-                int num = db.SaveChanges();
+                Contexts.DB.Customers.AddOrUpdate(customerToUpdate);
+                int num = Contexts.DB.SaveChanges();
+
+                //customerToUpdate.allRelatedOrders = conte
             }
         }
 
         public static Customer GetCustomer(string ID)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                return (from cust in db.Customers
+                return (from cust in Contexts.DB.Customers
                         where cust.ID == ID
                         select cust).FirstOrDefault();
             }
+            return null;
         }
 
         public static void DeleteCustomer(string customerIDToRemove)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
                 var customer = GetCustomer(customerIDToRemove);
-                db.Entry(customer).State = EntityState.Deleted;
+                OrderdDAL.DeleteAllRelatedOrders(customer.allRelatedOrders);
+                Contexts.DB.Entry(customer).State = EntityState.Deleted;
 
-                int num = db.SaveChanges();
+                int num = Contexts.DB.SaveChanges();
             }
         }
 
         public static List<Customer> SelectByCriteria(string id = null, string name = null, string lastName = null, string address = null, string phone = null, string password = null, bool? isadmin = null, bool? prefered = null)
         {
-            using (PastryContext db = new PastryContext())
+            //using (PastryContext Contexts.DB = new PastryContext())
             {
-                IList<Customer> result = db.Customers.ToList();
+                IList<Customer> result = Contexts.DB.Customers.ToList();
 
-                if (id != null)
+                if (id != null && id != "")
                 {
                     result = result.Where(p => p.ID.Equals(id)).ToList();
                 }
-                if (name != null)
+                if (name != null && name != "")
                 {
                     result = result.Where(p => p.Name.ToLower().Contains(name.ToLower())).ToList();
                 }
-                if (lastName != null)
+                if (lastName != null && lastName != null)
                 {
                     result = result.Where(p => p.LastName.ToLower().Contains(lastName.ToLower())).ToList();
                 }
-                if (address != null)
+                if (address != null && address != null)
                 {
                     result = result.Where(p => p.Address.ToLower().Contains(address.ToLower())).ToList();
                 }
-                if (phone != null)
+                if (phone != null && phone != null)
                 {
                     result = result.Where(p => p.Phone.Contains(phone)).ToList();
-                }
-                if (password != null)
-                {
-                    result = result.Where(p => p.Password.Equals(password)).ToList();
                 }
                 if (prefered != null)
                 {
