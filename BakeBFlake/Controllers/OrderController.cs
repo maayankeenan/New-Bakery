@@ -15,7 +15,7 @@ namespace BakeBFlake.Controllers
 
             var orders = new List<Order>();
 
-            int? intId;
+            int? intId = null;
             bool errorId = false;
             if (id != null)
             {
@@ -29,7 +29,7 @@ namespace BakeBFlake.Controllers
                 }
             }
 
-            int? intPrice;
+            int? intPrice = null;
             bool errorPrice = false;
             if (id != null)
             {
@@ -43,16 +43,20 @@ namespace BakeBFlake.Controllers
                 }
             }
 
-            if (Session["LoginUser"] != null)
+            if (!errorPrice && !errorId)
             {
-                var cust = Session["LoginUser"] as Customer;
-                if (cust.IsAdmin)
+
+                if (Session["LoginUser"] != null)
                 {
-                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, customerId, null);
-                }
-                else
-                {
-                    orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, cust.ID, null);
+                    var cust = Session["LoginUser"] as Customer;
+                    if (cust.IsAdmin)
+                    {
+                        orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, customerId, null);
+                    }
+                    else
+                    {
+                        orders = Repository.DAL.OrderdDAL.SelectByCriteria(intId, isPrefered, null, null, intPrice, comments, null, cust.ID, null);
+                    }
                 }
             }
 
